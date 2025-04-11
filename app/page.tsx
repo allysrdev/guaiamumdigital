@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useScroll } from "@/contexts/scroll";
 import { MonitorCog } from "lucide-react";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import { RefObject, useEffect, useRef } from "react";
 
 export default function Home() {
@@ -38,9 +37,9 @@ export default function Home() {
           <h2 className="font-bold text-lg md:text-xl">
             Adquira agora e mantenha o lucro total do seu negócio, sem taxas surpresas!
           </h2>
-          <Button className="w-full md:w-1/2 cursor-pointer text-lg py-6" onClick={() => redirect('/guaiadelivery')}>
+          <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">
             Assinar agora!
-          </Button>
+          </a>
         </div>
 
         <div className="w-full md:w-1/2 flex justify-center md:justify-end">
@@ -228,7 +227,7 @@ export default function Home() {
       {/* Formulário */}
       <div className="w-full md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-md">
         <h3 className="text-2xl font-bold text-gray-900 mb-6">Envie sua mensagem</h3>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={() => console.log('formulário enviado')}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nome</label>
             <input
