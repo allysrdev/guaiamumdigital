@@ -1,44 +1,16 @@
 'use client'
 import Header from "@/components/Header";
-import { Button } from "@/components/ui/button";
 import { useScroll } from "@/contexts/scroll";
 import { MonitorCog, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef } from "react";
 
 export default function Home() {
   const contactRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<HTMLDivElement>(null);
-  const [status, setStatus] = useState("");
   const { registerRef } = useScroll();
 
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      message: formData.get("message"),
-    };
-
-    const res = await fetch("/api/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (res.ok) {
-      setStatus("Mensagem enviada com sucesso!");
-    } else {
-      setStatus("Erro ao enviar. Tente novamente.");
-    }
-  };
 
   useEffect(() => {
   if (contactRef.current) {
