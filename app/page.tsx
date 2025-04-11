@@ -2,14 +2,43 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { useScroll } from "@/contexts/scroll";
-import { MonitorCog } from "lucide-react";
+import { MonitorCog, User } from "lucide-react";
 import Image from "next/image";
-import { RefObject, useEffect, useRef } from "react";
+import Link from "next/link";
+import { RefObject, useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const contactRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState("");
   const { registerRef } = useScroll();
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      message: formData.get("message"),
+    };
+
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      setStatus("Mensagem enviada com sucesso!");
+    } else {
+      setStatus("Erro ao enviar. Tente novamente.");
+    }
+  };
 
   useEffect(() => {
   if (contactRef.current) {
@@ -198,81 +227,30 @@ export default function Home() {
               <h3 className="font-medium text-gray-900">Email</h3>
               <p className="text-gray-600">contato@guaiamumdigital.com.br</p>
             </div>
-                </div>
-                <div className="flex items-start gap-4">
+            </div>
+                
+          <div className="flex items-start gap-4">
+            <div className="bg-primary-100 p-3 rounded-full">
+              <User className="h-6 w-6 text-gray-900" />
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-900">Central de Vendas</h3>
+              <Link className="underline" href='https://guaiamumdigital.zohobookings.com/#/4757160000000049008' target="blank">Clique aqui para agendar um atendimento</Link>
+            </div>
+          </div>
+            <div className="flex items-start gap-4">
             <div className="bg-primary-100 p-3 rounded-full">
              <MonitorCog className="h-6 w-6 text-gray-900" />
             </div>
             <div>
               <h3 className="font-medium text-gray-900">Suporte Técnico</h3>
-              <p className="text-gray-600">support@guaiamumdigital.zohodesk.com</p>
+              <Link className="text-gray-600" href="mailto:exemplo@exemplo.com?subject=Contato%20sobre%20produto">support@guaiamumdigital.zohodesk.com</Link>
             </div>
           </div>
-          
-          <div className="flex items-start gap-4">
-            <div className="bg-primary-100 p-3 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-900">Local</h3>
-              <p className="text-gray-600">Somos uma empresa digital, atuamos em todo o Brasil!</p>
-            </div>
-          </div>
+      
         </div>
       </div>
       
-      {/* Formulário */}
-      <div className="w-full md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-md">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">Envie sua mensagem</h3>
-        <form className="space-y-4" onSubmit={() => console.log('formulário enviado')}>
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-            <input
-              type="text"
-              id="name"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-              placeholder="Seu nome completo"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              id="email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-              placeholder="seu@email.com"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
-            <input
-              type="tel"
-              id="phone"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-              placeholder="(XX) XXXXX-XXXX"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
-            <textarea
-              id="message"
-              rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-              placeholder="Como podemos te ajudar?"
-            ></textarea>
-          </div>
-          
-          <Button type="submit" className="w-full py-6 text-lg mt-4">
-            Enviar mensagem
-          </Button>
-        </form>
-      </div>
     </div>
   </div>
       </section>
