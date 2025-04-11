@@ -2,6 +2,7 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { useScroll } from "@/contexts/scroll";
+import { MonitorCog } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { RefObject, useEffect, useRef } from "react";
@@ -197,6 +198,15 @@ export default function Home() {
             <div>
               <h3 className="font-medium text-gray-900">Email</h3>
               <p className="text-gray-600">contato@guaiamumdigital.com.br</p>
+            </div>
+                </div>
+                <div className="flex items-start gap-4">
+            <div className="bg-primary-100 p-3 rounded-full">
+             <MonitorCog className="h-6 w-6 text-gray-900" />
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-900">Suporte Técnico</h3>
+              <p className="text-gray-600">support@guaiamumdigital.zohodesk.com</p>
             </div>
           </div>
           
