@@ -77,9 +77,9 @@ export default function Home() {
             </p>
           </div>
           
-          <Button className="w-full md:w-1/2 py-6 text-lg" onClick={() => redirect('/guaiadelivery')}>
+          <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">
             Assinar agora!
-          </Button>
+          </a>
         </div>
 
         <div className="w-full md:w-1/2 flex justify-center order-1 md:order-2">
@@ -104,9 +104,9 @@ export default function Home() {
               Bem-vindo ao seu Dashboard de Admin, a ferramenta essencial para gerenciar sua loja de forma eficiente, intuitiva e sem complicações. Aqui, você tem todas as funcionalidades necessárias para tomar decisões estratégicas e otimizar suas operações.
             </p>
           </div>
-          <Button className="w-full md:w-1/2 py-6 text-lg" onClick={() => redirect('/guaiadelivery')}>
+          <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">
             Assinar agora!
-          </Button>
+          </a>
         </div>
 
         <div className="w-full md:w-1/2 flex justify-center">
@@ -158,7 +158,7 @@ export default function Home() {
         <b>Avaliar o Desempenho dos Produtos:</b> Descubra quais itens são os mais vendidos e ajuste seu cardápio para maximizar o sucesso.
       </p>
     </div>
-    <Button className="w-full md:w-1/2 mt-4" onClick={() => redirect('/guaiadelivery')}>Assinar agora!</Button>
+    <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">Assinar agora!</a>
   </div>
       </section>
       
