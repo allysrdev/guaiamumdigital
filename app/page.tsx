@@ -36,11 +36,11 @@ export default function Home() {
             </p>
           </div>
           <h2 className="font-bold text-lg md:text-xl">
-            Adquira agora e mantenha o lucro total do seu negócio, sem taxas surpresas!
+            Assine agora e mantenha o lucro total do seu negócio, sem taxas surpresas!
           </h2>
-          <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">
-            Assinar agora!
-          </a>
+          <Link className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614?text=Olá">
+            Solicite orçamento agora!
+          </Link>
         </div>
 
         <div className="w-full md:w-1/2 flex justify-center md:justify-end">
@@ -77,9 +77,9 @@ export default function Home() {
             </p>
           </div>
           
-          <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">
-            Assinar agora!
-          </a>
+          <Link className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614?text=Olá">
+            Solicite orçamento agora!
+          </Link>
         </div>
 
         <div className="w-full md:w-1/2 flex justify-center order-1 md:order-2">
@@ -104,9 +104,9 @@ export default function Home() {
               Bem-vindo ao seu Dashboard de Admin, a ferramenta essencial para gerenciar sua loja de forma eficiente, intuitiva e sem complicações. Aqui, você tem todas as funcionalidades necessárias para tomar decisões estratégicas e otimizar suas operações.
             </p>
           </div>
-          <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">
-            Assinar agora!
-          </a>
+          <Link className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614?text=Olá">
+            Solicite orçamento agora!
+          </Link>
         </div>
 
         <div className="w-full md:w-1/2 flex justify-center">
@@ -158,7 +158,9 @@ export default function Home() {
         <b>Avaliar o Desempenho dos Produtos:</b> Descubra quais itens são os mais vendidos e ajuste seu cardápio para maximizar o sucesso.
       </p>
     </div>
-    <a className="w-full md:w-1/2 py-6 text-lg" href="https://wa.me/558132998614?text=Olá">Assinar agora!</a>
+    <Link className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614?text=Olá">
+            Solicite orçamento agora!
+    </Link>
   </div>
       </section>
       
@@ -184,7 +186,7 @@ export default function Home() {
               </svg>
             </div>
             <div>
-              <h3 className="font-medium text-gray-900">Telefone</h3>
+              <h3 className="font-medium text-gray-900">WhatsApp</h3>
               <p className="text-gray-600">(81) 3299-8614</p>
             </div>
           </div>
