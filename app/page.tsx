@@ -38,7 +38,7 @@ export default function Home() {
           <h2 className="font-bold text-lg md:text-xl">
             Assine agora e mantenha o lucro total do seu negócio, sem taxas surpresas!
           </h2>
-          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3pMwXRezoZb3zl8wc9rDZ28uVCbg_BSeVRDMR5OPG59GTqOD8FbNKEh6_sKxH8bXEJB7W7Db0I">
+          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614">
             Solicite orçamento agora!
           </Link>
         </div>
@@ -77,7 +77,7 @@ export default function Home() {
             </p>
           </div>
           
-          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3pMwXRezoZb3zl8wc9rDZ28uVCbg_BSeVRDMR5OPG59GTqOD8FbNKEh6_sKxH8bXEJB7W7Db0I">
+          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614">
             Solicite orçamento agora!
           </Link>
         </div>
@@ -104,7 +104,7 @@ export default function Home() {
               Bem-vindo ao seu Dashboard de Admin, a ferramenta essencial para gerenciar sua loja de forma eficiente, intuitiva e sem complicações. Aqui, você tem todas as funcionalidades necessárias para tomar decisões estratégicas e otimizar suas operações.
             </p>
           </div>
-          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3pMwXRezoZb3zl8wc9rDZ28uVCbg_BSeVRDMR5OPG59GTqOD8FbNKEh6_sKxH8bXEJB7W7Db0I">
+          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614">
             Solicite orçamento agora!
           </Link>
         </div>
@@ -158,7 +158,7 @@ export default function Home() {
         <b>Avaliar o Desempenho dos Produtos:</b> Descubra quais itens são os mais vendidos e ajuste seu cardápio para maximizar o sucesso.
       </p>
     </div>
-    <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3pMwXRezoZb3zl8wc9rDZ28uVCbg_BSeVRDMR5OPG59GTqOD8FbNKEh6_sKxH8bXEJB7W7Db0I">
+    <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614">
             Solicite orçamento agora!
     </Link>
   </div>
@@ -209,7 +209,7 @@ export default function Home() {
             </div>
             <div>
               <h3 className="font-medium text-gray-900">Central de Vendas</h3>
-              <Link target="blank" className="underline" href='https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3pMwXRezoZb3zl8wc9rDZ28uVCbg_BSeVRDMR5OPG59GTqOD8FbNKEh6_sKxH8bXEJB7W7Db0I'>Clique aqui para agendar um atendimento</Link>
+              <Link target="blank" className="underline" href='https://wa.me/558132998614'>Clique aqui para agendar um atendimento</Link>
             </div>
           </div>
             <div className="flex items-start gap-4">
