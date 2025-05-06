@@ -33,7 +33,7 @@ export default function Header() {
           <NavigationMenuList>
             <NavigationMenuItem>
                 <NavigationMenuLink onClick={() => scrollTo('start')} className={navigationMenuTriggerStyle()}>
-                  GuaiaDelivery App
+                  Início
                 </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
