@@ -6,7 +6,7 @@ Este projeto foi construído com foco em performance, responsividade e animaçõ
 
 ## ✨ Tecnologias Utilizadas
 
-- [Next.js 13+ (App Router)](https://nextjs.org/docs/app)
+- [Next.js 15 (App Router)](https://nextjs.org/docs/app)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Framer Motion](https://www.framer.com/motion/)
