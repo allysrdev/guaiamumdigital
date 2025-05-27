@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Guaiamum Digital 🦀
 
-## Getting Started
+Website institucional desenvolvido para a **Guaiamum Digital**, uma startup de soluções digitais com sede em Recife-PE.
 
-First, run the development server:
+Este projeto foi construído com foco em performance, responsividade e animações suaves, utilizando tecnologias modernas como **Next.js**, **TypeScript** e **Tailwind CSS**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Tecnologias Utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Next.js 13+ (App Router)](https://nextjs.org/docs/app)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Vercel](https://vercel.com/) – Deploy e hospedagem
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Layout responsivo (mobile-first)
+- Animações com Framer Motion (fade-in e transições suaves)
+- Scroll suave entre seções
+- SEO básico (title, description, Open Graph)
+- Integração com WhatsApp, Instagram e E-mail
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🔗 [https://guaiamumdigital.com.br](https://guaiamumdigital.com.br)  
+Hospedado com [Vercel](https://vercel.com/).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 👨‍💻 Desenvolvedor
 
-## Deploy on Vercel
+Desenvolvido por [Ally](https://github.com/allysrdev)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> Para sugestões ou melhorias, fique à vontade para abrir uma issue ou pull request.
