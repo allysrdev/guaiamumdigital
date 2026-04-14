@@ -1,11 +1,18 @@
 'use client'
 import Header from "@/components/Header";
 import { useScroll } from "@/contexts/scroll";
-import { ArrowRight, Globe, Cpu, Smartphone, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Globe, Cpu, Smartphone, CheckCircle2, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { RefObject, useEffect, useRef } from "react";
 import { motion, useScroll as useFramerScroll, useTransform, useSpring } from "framer-motion";
+
+interface Project {
+  title: string;
+  category: string;
+  description: string;
+  url: string;
+}
 
 const FadeIn = ({ children, delay = 0, y = 30 }: { children: React.ReactNode; delay?: number; y?: number }) => (
   <motion.div
@@ -39,10 +46,47 @@ const RevealText = ({ text }: { text: string }) => {
   );
 };
 
+const ProjectCard = ({ project, index }: { project: Project, index: number }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative w-full aspect-[16/10] rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/5"
+    >
+      <Link href={project.url} target="_blank" className="block w-full h-full">
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        
+        {/* Project Info Overlay */}
+        <div className="absolute inset-x-0 bottom-0 z-20 p-8 md:p-12 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2 block">{project.category}</span>
+          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter">{project.title}</h3>
+          <p className="text-white/70 max-w-md text-sm md:text-base font-medium leading-relaxed mb-6">
+            {project.description}
+          </p>
+          <div className="flex items-center gap-2 text-white font-bold text-sm uppercase tracking-widest">
+            Explorar Projeto <ExternalLink size={16} />
+          </div>
+        </div>
+
+        {/* Project Image Placeholder/Preview */}
+        <div className="w-full h-full relative scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-out">
+           <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-white/5">
+              <span className="text-foreground/10 font-bold text-8xl md:text-[12rem] tracking-tighter select-none">{project.title[0]}</span>
+           </div>
+           <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5" />
+        </div>
+      </Link>
+    </motion.div>
+  );
+};
+
 export default function Home() {
   const contactRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
+  const portfolioRef = useRef<HTMLDivElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
   const { registerRef } = useScroll();
   
@@ -54,15 +98,67 @@ export default function Home() {
     registerRef('start', startRef as RefObject<HTMLElement>);
     registerRef('contact', contactRef as RefObject<HTMLElement>);
     registerRef('services', servicesRef as RefObject<HTMLElement>);
+    registerRef('portfolio', portfolioRef as RefObject<HTMLElement>);
     registerRef('process', processRef as RefObject<HTMLElement>);
   }, [registerRef]);
+
+  const projects: Project[] = [
+    {
+      title: "Shopping Afogados",
+      category: "E-commerce & Portal",
+      description: "Plataforma digital completa para um dos maiores centros comerciais da região.",
+      url: "https://shopping-afogados-site.vercel.app/"
+    },
+    {
+      title: "Larissa Layme",
+      category: "Luxury Branding",
+      description: "Website exclusivo para advocacia solar, unindo elegância e autoridade jurídica.",
+      url: "https://larissa-layme-solar.vercel.app/"
+    },
+    {
+      title: "Hollywood Forever",
+      category: "Entertainment",
+      description: "Experiência cinematográfica imersiva para streaming e conteúdo audiovisual.",
+      url: "https://hollywoodforevertv.vercel.app/"
+    },
+    {
+      title: "Maria Boleria",
+      category: "Food & Experience",
+      description: "Design delicioso focado em experiência de marca e conversão direta.",
+      url: "https://mariaboleria.vercel.app/"
+    },
+    {
+      title: "AMDTS",
+      category: "Corporate System",
+      description: "Solução robusta para gestão e tecnologia de dados empresariais.",
+      url: "https://amdts.com.br/"
+    },
+    {
+      title: "BRM Engenharia",
+      category: "Industrial Tech",
+      description: "Presença digital sólida para grandes projetos de engenharia civil e elétrica.",
+      url: "https://brmengenharia.com.br/"
+    },
+    {
+      title: "Hoje App",
+      category: "SaaS / Product",
+      description: "Interface intuitiva para gestão de tempo e produtividade moderna.",
+      url: "https://hoje.allysr.dev/"
+    },
+    {
+      title: "Ignite Shop",
+      category: "Modern E-commerce",
+      description: "Storefront de alta performance com tecnologias de ponta.",
+      url: "https://igniteshop-liart.vercel.app/"
+    }
+  ];
 
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden bg-white dark:bg-black selection:bg-black selection:text-white">
       <div className="noise fixed inset-0 z-[100] mix-blend-overlay opacity-5 pointer-events-none" />
       <Header />
       
-      {/* HERO SECTION - IMMERSIVE SCALE DOWN */}
+      {/* HERO SECTION */}
       <section ref={startRef} id="start" className="relative w-full min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6">
         <motion.div 
           style={{ scale: scaleProgress, opacity: opacityProgress }}
@@ -101,7 +197,7 @@ export default function Home() {
                 />
               </Link>
               <button 
-                onClick={() => servicesRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
                 className="text-lg font-bold tracking-tight hover:text-foreground/60 transition-colors flex items-center gap-2 group"
               >
                 Nossos Projetos <span className="w-8 h-[1px] bg-foreground/20 group-hover:w-12 transition-all duration-500" />
@@ -110,34 +206,38 @@ export default function Home() {
           </FadeIn>
         </motion.div>
 
-        {/* FLOATING DECORATIVE ELEMENTS */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
           <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
         </div>
       </section>
 
-      {/* MOCKUP SECTION - PARALLAX EFFECT */}
-      <section className="w-full max-w-[1440px] px-6 md:px-12 -mt-20 z-20">
-        <motion.div 
-          initial={{ y: 100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative aspect-[21/9] w-full rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-[0_60px_120px_-20px_rgba(0,0,0,0.4)] border border-white/10"
-        >
-          <Image
-            src='/web-development.png'
-            alt="Premium Project Showcase"
-            fill
-            className="object-cover scale-105 hover:scale-100 transition-transform duration-[2s] ease-out"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40" />
-        </motion.div>
+      {/* PORTFOLIO SECTION */}
+      <section ref={portfolioRef} id="portfolio" className="w-full py-40 px-6 bg-white dark:bg-black">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-32">
+            <div className="max-w-2xl space-y-6">
+              <FadeIn>
+                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-foreground/40">Obras Selecionadas</span>
+                <h2 className="text-5xl md:text-8xl font-bold tracking-tight leading-[0.9] mt-4">Portfólio de <br /> Excelência.</h2>
+              </FadeIn>
+            </div>
+            <FadeIn delay={0.2}>
+              <p className="text-xl text-foreground/40 font-medium max-w-sm mb-4">
+                Cada projeto é um compromisso com a perfeição técnica e estética.
+              </p>
+            </FadeIn>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+            {projects.map((project, i) => (
+              <ProjectCard key={i} project={project} index={i} />
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* PHILOSOPHY SECTION - QUIET LUXURY */}
+      {/* PHILOSOPHY SECTION */}
       <section className="w-full py-40 px-6 bg-white dark:bg-black">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
@@ -187,7 +287,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES - INTERACTIVE CARDS */}
+      {/* SERVICES */}
       <section ref={servicesRef} id="services" className="w-full py-40 px-6 bg-gray-50 dark:bg-white/[0.02]">
         <div className="container mx-auto max-w-7xl">
           <FadeIn>
@@ -244,7 +344,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROCESS - THE IMMERSIVE TIMELINE */}
+      {/* PROCESS */}
       <section ref={processRef} id="process" className="w-full py-40 px-6">
         <div className="container mx-auto max-w-5xl">
           <FadeIn>
@@ -274,7 +374,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA - THE FINAL CONVERSION */}
+      {/* CTA */}
       <section ref={contactRef} id="contact" className="w-full py-40 px-6">
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
@@ -329,11 +429,15 @@ export default function Home() {
           </div>
           
           <div className="flex gap-12">
-            {['Instagram', 'LinkedIn', 'GitHub'].map(social => (
+            {['Instagram', 'LinkedIn', 'GitHub'].map(social => ( social === 'GitHub' ? (
+              <Link key={social} href="https://github.com/allysrdev" target="_blank" className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors">
+                {social}
+              </Link>
+            ) : (
               <Link key={social} href="#" className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors">
                 {social}
               </Link>
-            ))}
+            )))}
           </div>
         </div>
       </footer>

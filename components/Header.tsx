@@ -44,10 +44,10 @@ export default function Header() {
 
                     {/* Desktop Navigation */}
                     <nav className='hidden md:flex items-center gap-1'>
-                        {['Início', 'Serviços', 'Processo'].map((item) => (
+                        {['Início', 'Portfólio', 'Serviços', 'Processo'].map((item) => (
                             <button 
                                 key={item}
-                                onClick={() => scrollTo(item === 'Início' ? 'start' : item.toLowerCase())} 
+                                onClick={() => scrollTo(item === 'Início' ? 'start' : item.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))} 
                                 className="relative px-5 py-2 text-sm font-medium tracking-tight text-foreground/50 hover:text-foreground transition-all duration-300 group overflow-hidden"
                             >
                                 <span className="relative z-10">{item}</span>
@@ -88,13 +88,13 @@ export default function Header() {
                             transition={{ delay: 0.1 }}
                             className='flex flex-col items-center gap-10 px-6'
                         >
-                            {['Início', 'Serviços', 'Processo'].map((item, i) => (
+                            {['Início', 'Portfólio', 'Serviços', 'Processo'].map((item, i) => (
                                 <button 
                                     key={item}
                                     className='text-4xl font-bold tracking-tighter'
                                     onClick={() => {
                                         setIsMobileMenuOpen(false)
-                                        scrollTo(item === 'Início' ? 'start' : item.toLowerCase())
+                                        scrollTo(item === 'Início' ? 'start' : item.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
                                     }}
                                 >
                                     <motion.span
