@@ -1,11 +1,11 @@
 'use client'
 import Header from "@/components/Header";
 import { useScroll } from "@/contexts/scroll";
-import { Code, LayoutTemplate, Zap, ArrowRight, ShieldCheck, Globe, Cpu, Smartphone } from "lucide-react";
+import { ArrowRight, ShieldCheck, Globe, Cpu, Smartphone, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { RefObject, useEffect, useRef } from "react";
-import { motion, useScroll as useFramerScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
   <motion.div
