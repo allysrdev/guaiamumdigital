@@ -1,303 +1,276 @@
 'use client'
 import Header from "@/components/Header";
 import { useScroll } from "@/contexts/scroll";
-import { User, Code, LayoutTemplate, Zap } from "lucide-react";
+import { Code, LayoutTemplate, Zap, ArrowRight, ShieldCheck, Globe, Cpu, Smartphone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { RefObject, useEffect, useRef } from "react";
+import { motion, useScroll as useFramerScroll, useTransform } from "framer-motion";
+
+const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+  >
+    {children}
+  </motion.div>
+);
 
 export default function Home() {
   const contactRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const processRef = useRef<HTMLDivElement>(null);
   const { registerRef } = useScroll();
 
   useEffect(() => {
-    if (contactRef.current) {
-      registerRef('contact', contactRef as RefObject<HTMLElement>);
-      registerRef('start', startRef as RefObject<HTMLElement>);
-    }
+    registerRef('start', startRef as RefObject<HTMLElement>);
+    registerRef('contact', contactRef as RefObject<HTMLElement>);
+    registerRef('services', servicesRef as RefObject<HTMLElement>);
+    registerRef('process', processRef as RefObject<HTMLElement>);
   }, [registerRef]);
 
   return (
-    <div className="flex flex-col items-center md:gap-10 w-full">
+    <div className="flex flex-col items-center w-full overflow-x-hidden bg-white dark:bg-black selection:bg-black selection:text-white">
       <Header />
       
-      {/* Seção 1 - Hero */}
-      <section ref={startRef} id="start" className="flex flex-col md:flex-row w-full max-w-7xl px-4 md:px-6 items-center justify-between py-10 gap-8 md:gap-12 rounded-md">
-        <div className="w-full md:w-1/2 flex flex-col gap-5 md:gap-6">
-          <div className="flex flex-col gap-4">
-            <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
-              Soluções Web Sob Medida para seu Negócio
-            </h1>
-            <p className="text-lg text-gray-600">
-              Transformamos suas ideias em aplicações web e mobile de alto desempenho. 
-              Desenvolvemos soluções personalizadas que impulsionam seu negócio na era digital.
-            </p>
-          </div>
-          <h2 className="font-bold text-lg md:text-xl">
-            Tecnologia de ponta, design intuitivo e performance excepcional
-          </h2>
-          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614">
-            Fale com nossos especialistas
-          </Link>
-        </div>
-
-        <div className="w-full md:w-1/2 h-full flex  justify-start items-start md:justify-end">
-          <Image
-            src='/web-development.png'
-            alt="Desenvolvimento de aplicações web"
-            width={500}
-            height={500}
-            className="rounded-md shadow-md"
-          />
-        </div>
-      </section>
-
-      {/* Seção 2 - Nossos Serviços */}
-      <section className="flex flex-col w-full max-w-7xl px-4 md:px-6 py-10 md:min-h-[500px] gap-8 bg-gray-50 rounded-md shadow-md">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Nossos Serviços</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Oferecemos soluções completas para sua presença digital
-          </p>
-        </div>
-
-
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <Code className="text-blue-600" size={24} />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Desenvolvimento Web</h3>
-            <p className="text-gray-600">
-              Sites institucionais, landing pages e sistemas web complexos com tecnologias modernas.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <LayoutTemplate className="text-green-600" size={24} />
-            </div>
-            <h3 className="text-xl font-bold mb-2">UI/UX Design</h3>
-            <p className="text-gray-600">
-              Interfaces intuitivas e experiências de usuário que convertem visitantes em clientes.
-            </p>
-          </div>
-          </div>
-          
-      </section>
-
-      {/* Seção 3 - Diferenciais */}
-      <section className="flex flex-col md:flex-row w-full max-w-7xl px-4 md:px-6 items-center justify-between py-10 md:min-h-[500px] gap-8 rounded-md">
-        <div className="w-full md:w-1/2 flex flex-col gap-5 md:gap-6">
-          <div className="flex flex-col gap-4">
-            <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
-              Por que escolher nossa startup?
-            </h1>
-            <p className="text-lg text-gray-600">
-              Combinamos expertise técnica com entendimento de negócios para entregar soluções que realmente fazem a diferença.
-            </p>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <Zap className="text-yellow-500 mt-1" size={20} />
-              <div>
-                <h3 className="font-bold">Desenvolvimento Ágil</h3>
-                <p className="text-gray-600">Metodologias ágeis para entregas rápidas e eficientes</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-4">
-              <Zap className="text-yellow-500 mt-1" size={20} />
-              <div>
-                <h3 className="font-bold">Tecnologia de Ponta</h3>
-                <p className="text-gray-600">Utilizamos as melhores ferramentas e frameworks do mercado</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-4">
-              <Zap className="text-yellow-500 mt-1" size={20} />
-              <div>
-                <h3 className="font-bold">Suporte Contínuo</h3>
-                <p className="text-gray-600">Acompanhamento pós-entrega para garantir o sucesso do seu projeto</p>
-              </div>
-            </div>
-          </div>
-          
-          <Link target="blank" className="w-full md:w-1/2 text-lg bg-black text-white text-center p-2 rounded-md font-bold shadow-md " href="https://wa.me/558132998614">
-            Saiba mais
-          </Link>
-        </div>
-
-        <div className="w-full md:w-1/2 flex justify-center">
-          <Image
-            src='/tech-stack.png'
-            alt="Tecnologias utilizadas"
-            width={600}
-            height={400}
-            className="object-contain w-full max-w-xl"
-          />
-        </div>
-      </section>
-
-      {/* Seção 4 - Processo de Trabalho */}
-      <section className="flex flex-col w-full items-start m-auto min-h-[500px] py-10 bg-gray-50 px-6 rounded-md shadow-md max-w-7xl">
-        <div className="w-full text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Nosso Processo</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Um fluxo de trabalho transparente e eficiente para garantir os melhores resultados
-          </p>
-        </div>
+      {/* HERO SECTION - THE APPLE WAY */}
+      <section ref={startRef} id="start" className="relative flex flex-col w-full min-h-screen items-center justify-center pt-32 pb-20 px-6">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_100%)] from-gray-100/50 dark:from-gray-900/20 to-transparent pointer-events-none" />
         
-        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="flex flex-col items-center text-center">
-            <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-md">
-              <span className="text-xl font-bold">1</span>
-            </div>
-            <h3 className="font-bold mb-2">Briefing</h3>
-            <p className="text-gray-600 text-sm">Entendemos suas necessidades e objetivos</p>
-          </div>
+        <div className="z-10 w-full max-w-5xl text-center space-y-8">
+          <FadeIn>
+            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] uppercase bg-black/5 dark:bg-white/10 rounded-full">
+              Premium Digital Studio
+            </span>
+          </FadeIn>
           
-          <div className="flex flex-col items-center text-center">
-            <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-md">
-              <span className="text-xl font-bold">2</span>
-            </div>
-            <h3 className="font-bold mb-2">Prototipagem</h3>
-            <p className="text-gray-600 text-sm">Criamos wireframes e fluxos de navegação</p>
-          </div>
+          <FadeIn delay={0.1}>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-[1.05] text-gradient">
+              Elevamos sua presença <br className="hidden md:block" /> digital ao nível global.
+            </h1>
+          </FadeIn>
           
-          <div className="flex flex-col items-center text-center">
-            <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-md">
-              <span className="text-xl font-bold">3</span>
-            </div>
-            <h3 className="font-bold mb-2">Desenvolvimento</h3>
-            <p className="text-gray-600 text-sm">Implementação com as melhores práticas</p>
-          </div>
+          <FadeIn delay={0.2}>
+            <p className="max-w-2xl mx-auto text-lg md:text-xl text-foreground/60 font-medium leading-relaxed">
+              Não construímos apenas sites. Projetamos experiências digitais de alta performance para marcas que exigem excelência, sofisticação e resultados exponenciais.
+            </p>
+          </FadeIn>
           
-          <div className="flex flex-col items-center text-center">
-            <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-md">
-              <span className="text-xl font-bold">4</span>
+          <FadeIn delay={0.3}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+              <Link 
+                href="https://wa.me/558132998614" 
+                target="_blank"
+                className="group px-8 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-semibold tracking-tight hover:scale-105 transition-all duration-300 shadow-2xl shadow-black/20"
+              >
+                Solicitar Consultoria
+                <ArrowRight className="inline-block ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              </Link>
+              <button 
+                onClick={() => servicesRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-4 text-lg font-semibold tracking-tight hover:text-foreground/80 transition-colors"
+              >
+                Ver Portfólio
+              </button>
             </div>
-            <h3 className="font-bold mb-2">Entrega</h3>
-            <p className="text-gray-600 text-sm">Lançamento e treinamento da equipe</p>
+          </FadeIn>
+        </div>
+
+        {/* HERO IMAGE/MOCKUP AREA */}
+        <FadeIn delay={0.5}>
+          <div className="mt-24 w-full max-w-7xl px-4">
+            <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-black/5">
+              <Image
+                src='/web-development.png'
+                alt="High Ticket Digital Solutions"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* STATS / TRUST SECTION */}
+      <section className="w-full py-20 border-y border-black/5 bg-gray-50/30 dark:bg-white/5">
+        <div className="container mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+            {[
+              { label: "Projetos Entregues", value: "50+" },
+              { label: "Satisfação", value: "100%" },
+              { label: "ROI Médio", value: "3.5x" },
+              { label: "Países", value: "05" },
+            ].map((stat, i) => (
+              <FadeIn key={i} delay={i * 0.1}>
+                <div className="space-y-1">
+                  <h4 className="text-3xl md:text-4xl font-bold tracking-tight">{stat.value}</h4>
+                  <p className="text-sm font-medium text-foreground/40 uppercase tracking-widest">{stat.label}</p>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
-      
-      {/* Seção de Contato */}
-      <section ref={contactRef} id='contact' className="w-full bg-background py-16 md:py-24 rounded-md">
-        <div className="container mx-auto px-4 md:px-6 max-w-6xl">
-          <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center justify-center">
-            {/* Texto e informações */}
-            <div className="w-full flex flex-col gap-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                Pronto para transformar sua ideia em realidade?
-              </h2>
-              <p className="text-lg text-gray-600">
-                Entre em contato para discutirmos como podemos ajudar seu negócio a crescer com soluções tecnológicas personalizadas.
+
+      {/* SERVICES SECTION */}
+      <section ref={servicesRef} id="services" className="w-full py-32 px-6">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-24">
+            <div className="max-w-2xl space-y-6">
+              <FadeIn>
+                <h2 className="text-4xl md:text-6xl font-bold tracking-tight">Serviços Especializados para Negócios High-Ticket.</h2>
+              </FadeIn>
+              <FadeIn delay={0.1}>
+                <p className="text-xl text-foreground/60 leading-relaxed">
+                  Dominamos as tecnologias que as maiores empresas do mundo utilizam para escalar com segurança e elegância.
+                </p>
+              </FadeIn>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Globe className="text-black dark:text-white" size={32} />,
+                title: "Plataformas Web Premium",
+                desc: "Sites institucionais e e-commerces de alto padrão com foco em conversão e autoridade de marca."
+              },
+              {
+                icon: <Smartphone className="text-black dark:text-white" size={32} />,
+                title: "Apps Mobile Nativos",
+                desc: "Experiências móveis fluidas e intuitivas desenvolvidas para iOS e Android com tecnologia de ponta."
+              },
+              {
+                icon: <Cpu className="text-black dark:text-white" size={32} />,
+                title: "Sistemas Customizados",
+                desc: "Automação de processos complexos e dashboards inteligentes para gestão eficiente do seu negócio."
+              }
+            ].map((service, i) => (
+              <FadeIn key={i} delay={i * 0.1}>
+                <div className="group p-10 bg-gray-50 dark:bg-white/5 rounded-[2.5rem] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-500 cursor-default h-full border border-black/5">
+                  <div className="mb-8 p-4 bg-white dark:bg-black/20 w-fit rounded-2xl shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 tracking-tight">{service.title}</h3>
+                  <p className="text-foreground/60 group-hover:text-white/80 dark:group-hover:text-black/70 leading-relaxed">
+                    {service.desc}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS SECTION */}
+      <section ref={processRef} id="process" className="w-full py-32 bg-black text-white">
+        <div className="container mx-auto max-w-7xl px-6">
+          <div className="text-center mb-24 space-y-6">
+            <FadeIn>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tight">O Caminho para a Excelência.</h2>
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <p className="max-w-2xl mx-auto text-xl text-white/60">
+                Nosso método exclusivo garante que cada pixel e cada linha de código estejam alinhados aos seus objetivos comerciais.
               </p>
-              
-              <div className="mt-4 space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary-100 p-3 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900">WhatsApp</h3>
-                    <p className="text-gray-600">(81) 3299-8614</p>
-                  </div>
+            </FadeIn>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            {[
+              { step: "01", title: "Imersão Estratégica", desc: "Análise profunda do seu modelo de negócio e público-alvo." },
+              { step: "02", title: "Design de Experiência", desc: "Criação de interfaces refinadas com foco em usabilidade e desejo." },
+              { step: "03", title: "Engenharia de Software", desc: "Desenvolvimento robusto, escalável e com performance extrema." },
+              { step: "04", title: "Lançamento & Evolução", desc: "Deploy otimizado e acompanhamento contínuo de métricas de sucesso." }
+            ].map((item, i) => (
+              <FadeIn key={i} delay={i * 0.1}>
+                <div className="relative space-y-6">
+                  <span className="text-5xl font-bold opacity-20 block">{item.step}</span>
+                  <h4 className="text-xl font-bold tracking-tight">{item.title}</h4>
+                  <p className="text-white/50 leading-relaxed">{item.desc}</p>
                 </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary-100 p-3 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900">Email</h3>
-                    <p className="text-gray-600">contato@guaiamumdigital.com.br</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary-100 p-3 rounded-full">
-                    <User className="h-6 w-6 text-gray-900" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900">Consultoria</h3>
-                    <Link target="blank" className="underline" href='https://wa.me/558132998614'>Agende uma reunião com nossos especialistas</Link>
-                  </div>
-                </div>
-              </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA / CONTACT SECTION */}
+      <section ref={contactRef} id="contact" className="w-full py-40 px-6">
+        <div className="container mx-auto max-w-5xl bg-gray-50 dark:bg-white/5 rounded-[3rem] p-12 md:p-24 text-center border border-black/5 overflow-hidden relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-black dark:via-white to-transparent opacity-20" />
+          
+          <FadeIn>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">
+              Pronto para o próximo nível?
+            </h2>
+          </FadeIn>
+          
+          <FadeIn delay={0.1}>
+            <p className="text-xl text-foreground/60 mb-12 max-w-2xl mx-auto leading-relaxed">
+              Estamos selecionando novos projetos para este trimestre. Se você busca exclusividade e resultados reais, agende uma conversa estratégica.
+            </p>
+          </FadeIn>
+          
+          <FadeIn delay={0.2}>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+              <Link 
+                href="https://wa.me/558132998614" 
+                target="_blank"
+                className="w-full md:w-auto px-12 py-5 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-bold hover:scale-105 transition-transform shadow-xl"
+              >
+                Falar com Especialista
+              </Link>
+              <a 
+                href="mailto:contato@guaiamumdigital.com.br"
+                className="text-lg font-semibold hover:underline underline-offset-8 transition-all"
+              >
+                contato@guaiamumdigital.com.br
+              </a>
+            </div>
+          </FadeIn>
+          
+          <div className="mt-20 pt-10 border-t border-black/5 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm font-medium text-foreground/40 uppercase tracking-widest">
+            <div className="flex items-center justify-center gap-2">
+              <ShieldCheck size={18} /> Qualidade Garantida
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Zap size={18} /> Performance Extrema
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <Globe size={18} /> Alcance Global
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="w-full py-20 px-6 border-t border-black/5">
+        <div className="container mx-auto max-w-7xl">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+            <div className="space-y-4 text-center md:text-left">
+              <Image
+                src="/logogd-nobg.png"
+                alt="Guaiamum Digital"
+                width={150}
+                height={50}
+                className="mx-auto md:mx-0 opacity-80"
+              />
+              <p className="text-sm text-foreground/40 font-medium">
+                © 2026 Guaiamum Digital. Projetando o futuro, um pixel de cada vez.
+              </p>
             </div>
             
-          </div>
-        </div>
-      </section>
-      
-      {/* Rodapé */}
-      <footer className="bg-gray-50 text-gray-800 pt-16 pb-8 rounded-md w-full">
-        <div className="container mx-auto px-4 md:px-6 max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {/* Logo e sobre */}
-            <div className="md:col-span-2">
-              <div className="flex items-center mb-6">
-                <Image
-                  src="/logogd-nobg.png"
-                  alt="Guaiamum Digital"
-                  width={200}
-                  height={75}
-                  className="h-12 w-auto"
-                />
-              </div>
-              <p className="mb-4">
-                Especialistas em desenvolvimento de aplicações web sob medida. Transformamos ideias em soluções digitais que impulsionam negócios.
-              </p>
-              <div className="flex space-x-4">
-                <a href="https://www.instagram.com/guaiamumdgtl/" target="blank" className="text-gray-400 hover:text-black transition-colors">
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
-                  </svg>
-                </a>
-              </div>
+            <div className="flex gap-10">
+              <Link href="#" className="text-sm font-semibold text-foreground/60 hover:text-foreground transition-colors">Instagram</Link>
+              <Link href="#" className="text-sm font-semibold text-foreground/60 hover:text-foreground transition-colors">LinkedIn</Link>
+              <Link href="#" className="text-sm font-semibold text-foreground/60 hover:text-foreground transition-colors">GitHub</Link>
             </div>
-
-            {/* Contato */}
-            <div>
-              <h3 className="text-gray-500 font-semibold text-lg mb-4">Contato</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mt-0.5 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <span>(81) 3299-8614</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mt-0.5 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <span>contato@guaiamumdigital.com.br</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mt-0.5 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span>Todo o Brasil, sediado em Recife-PE</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-400 mb-4 md:mb-0">
-              © {new Date().getFullYear()} Guaiamum Digital. Todos os direitos reservados.
-            </p>
           </div>
         </div>
       </footer>

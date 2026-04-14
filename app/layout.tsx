@@ -14,23 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Guaiamum Digital - Seu Próprio App de Delivery sem Taxas Abusivas",
-  description: "Liberte seu restaurante das altas taxas do iFood! O GuaiaDelivery da Guaiamum Digital oferece um app de delivery personalizado para seu negócio, com controle total e sem intermediários. Tenha seu próprio sistema de entregas e aumente seus lucros!",
+  title: "Guaiamum Digital | Premium Digital Studio",
+  description: "Elevamos sua presença digital ao nível global. Projetamos experiências digitais de alta performance para marcas que exigem excelência, sofisticação e resultados exponenciais.",
   keywords: [
-    "app de delivery para restaurantes",
-    "sistema próprio de delivery",
-    "como fugir do iFood",
-    "app delivery personalizado",
-    "GuaiaDelivery",
-    "taxas de delivery",
-    "app para restaurante",
-    "delivery independente",
-    "plataforma de delivery própria",
-    "Guaiamum Digital"
+    "estúdio digital premium",
+    "desenvolvimento web high ticket",
+    "design de luxo para tecnologia",
+    "consultoria digital estratégica",
+    "Guaiamum Digital",
+    "soluções web exclusivas",
+    "branding digital premium"
   ],
   openGraph: {
-    title: "Guaiamum Digital - Solução de Delivery Independente para Restaurantes",
-    description: "Tenha seu próprio app de delivery e escape das taxas altas do iFood com a Guaiamum Digital. Solução completa para restaurantes e estabelecimentos alimentícios.",
+    title: "Guaiamum Digital | Premium Digital Studio",
+    description: "Transformamos marcas através de design refinado e tecnologia de ponta. Experiências digitais que convertem.",
     url: "https://www.guaiamumdigital.com.br",
     siteName: "Guaiamum Digital",
     images: [
@@ -38,22 +35,23 @@ export const metadata: Metadata = {
         url: "https://www.guaiamumdigital.com.br/logogd-nobg.png",
         width: 1200,
         height: 630,
-        alt: "Guaiamum Digital - App de Delivery Independente",
+        alt: "Guaiamum Digital - Premium Digital Studio",
       },
     ],
     locale: "pt_BR",
     type: "website",
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased md:px-28 py-10`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-foreground min-h-screen`}
       >
         <ScrollProvider>
           {children}
