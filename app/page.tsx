@@ -15,11 +15,12 @@ interface Project {
   image: string;
 }
 
-const FadeIn = ({ children, delay = 0, y = 30, once = true }: { children: React.ReactNode; delay?: number; y?: number; once?: boolean }) => (
+const FadeIn = ({ children, delay = 0, y = 30, once = true, immediate = false }: { children: React.ReactNode; delay?: number; y?: number; once?: boolean; immediate?: boolean }) => (
   <motion.div
     initial={{ opacity: 0, y }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once, margin: "-100px" }}
+    animate={immediate ? { opacity: 1, y: 0 } : undefined}
+    whileInView={!immediate ? { opacity: 1, y: 0 } : undefined}
+    viewport={!immediate ? { once, margin: "-100px" } : undefined}
     transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
   >
     {children}
@@ -205,7 +206,7 @@ export default function Home() {
           style={{ scale: scaleProgress, opacity: opacityProgress }}
           className="z-10 w-full max-w-6xl text-center space-y-12"
         >
-          <FadeIn y={10} once={false}>
+          <FadeIn y={10} immediate={true}>
             <span className="inline-flex items-center gap-2 px-4 py-2 text-[10px] font-bold tracking-[0.3em] uppercase bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/5 dark:border-white/5">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
               Engenharia Digital de Precisão
@@ -216,14 +217,14 @@ export default function Home() {
             <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-[-0.06em] leading-[0.85] text-gradient py-2">
               <RevealText text="Projetando o futuro, um pixel de cada vez." />
             </h1>
-            <FadeIn delay={0.2} once={false}>
+            <FadeIn delay={0.2} immediate={true}>
               <p className="max-w-2xl mx-auto text-xl md:text-2xl text-foreground/40 font-medium leading-relaxed tracking-tight">
                 Combinamos arquitetura de software de alta performance com design funcional para criar soluções que escalam o seu negócio.
               </p>
             </FadeIn>
           </div>
           
-          <FadeIn delay={0.3} once={false}>
+          <FadeIn delay={0.3} immediate={true}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4">
               <Link 
                 href="https://wa.me/558132998614" 
@@ -355,7 +356,7 @@ export default function Home() {
               {
                 icon: <Code2 size={40} strokeWidth={1.5} />,
                 title: "Desenvolvimento Web Responsivo",
-                desc: "Engenharia de software de alta performance para sites e plataformas que funcionam perfeitamente em qualquer dispositivo.",
+                desc: "Engenharia de software de alta performance para sites e platforms que funcionam perfeitamente em qualquer dispositivo.",
                 tags: ["Next.js", "React", "Performance"]
               }
             ].map((service, i) => (
