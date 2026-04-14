@@ -58,7 +58,6 @@ const ProjectCard = ({ project, index }: { project: Project, index: number }) =>
       <Link href={project.url} target="_blank" className="block w-full h-full">
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         
-        {/* Project Info Overlay */}
         <div className="absolute inset-x-0 bottom-0 z-20 p-8 md:p-12 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out">
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2 block">{project.category}</span>
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter">{project.title}</h3>
@@ -66,11 +65,10 @@ const ProjectCard = ({ project, index }: { project: Project, index: number }) =>
             {project.description}
           </p>
           <div className="flex items-center gap-2 text-white font-bold text-sm uppercase tracking-widest">
-            Explorar Projeto <ExternalLink size={16} />
+            Visualizar <ExternalLink size={16} />
           </div>
         </div>
 
-        {/* Project Image Placeholder/Preview */}
         <div className="w-full h-full relative scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-out">
            <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-white/5">
               <span className="text-foreground/10 font-bold text-8xl md:text-[12rem] tracking-tighter select-none">{project.title[0]}</span>
@@ -106,49 +104,49 @@ export default function Home() {
     {
       title: "Shopping Afogados",
       category: "E-commerce & Portal",
-      description: "Plataforma digital completa para um dos maiores centros comerciais da região.",
+      description: "Infraestrutura digital completa para gestão e vendas de um centro comercial regional.",
       url: "https://shopping-afogados-site.vercel.app/"
     },
     {
       title: "Larissa Layme",
-      category: "Luxury Branding",
-      description: "Website exclusivo para advocacia solar, unindo elegância e autoridade jurídica.",
+      category: "Institutional",
+      description: "Plataforma focada em autoridade e presença digital para o setor jurídico solar.",
       url: "https://larissa-layme-solar.vercel.app/"
     },
     {
       title: "Hollywood Forever",
       category: "Entertainment",
-      description: "Experiência cinematográfica imersiva para streaming e conteúdo audiovisual.",
+      description: "Interface de alta performance para streaming e distribuição de conteúdo audiovisual.",
       url: "https://hollywoodforevertv.vercel.app/"
     },
     {
       title: "Maria Boleria",
-      category: "Food & Experience",
-      description: "Design delicioso focado em experiência de marca e conversão direta.",
+      category: "Brand Experience",
+      description: "Presença digital otimizada para conversão e engajamento de marca no setor alimentício.",
       url: "https://mariaboleria.vercel.app/"
     },
     {
       title: "AMDTS",
       category: "Corporate System",
-      description: "Solução robusta para gestão e tecnologia de dados empresariais.",
+      description: "Desenvolvimento de sistemas robustos para gestão de dados e processos empresariais.",
       url: "https://amdts.com.br/"
     },
     {
       title: "BRM Engenharia",
       category: "Industrial Tech",
-      description: "Presença digital sólida para grandes projetos de engenharia civil e elétrica.",
+      description: "Solução digital sólida para grandes operações de engenharia e infraestrutura.",
       url: "https://brmengenharia.com.br/"
     },
     {
       title: "Hoje App",
-      category: "SaaS / Product",
-      description: "Interface intuitiva para gestão de tempo e produtividade moderna.",
+      category: "Product / SaaS",
+      description: "Aplicação focada em produtividade e gestão de fluxos de trabalho modernos.",
       url: "https://hoje.allysr.dev/"
     },
     {
       title: "Ignite Shop",
-      category: "Modern E-commerce",
-      description: "Storefront de alta performance com tecnologias de ponta.",
+      category: "E-commerce Tech",
+      description: "Implementação de storefront de alto desempenho com arquitetura escalável.",
       url: "https://igniteshop-liart.vercel.app/"
     }
   ];
@@ -166,18 +164,18 @@ export default function Home() {
         >
           <FadeIn y={10}>
             <span className="inline-flex items-center gap-2 px-4 py-2 text-[10px] font-bold tracking-[0.3em] uppercase bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/5 dark:border-white/5">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              Disponível para novos projetos
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+              Engenharia Digital de Precisão
             </span>
           </FadeIn>
           
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-[-0.06em] leading-[0.85] text-gradient py-2">
-              <RevealText text="Elegância em cada pixel." />
+              <RevealText text="Projetando o futuro, um pixel de cada vez." />
             </h1>
             <FadeIn delay={0.4}>
               <p className="max-w-2xl mx-auto text-xl md:text-2xl text-foreground/40 font-medium leading-relaxed tracking-tight">
-                Projetamos o futuro digital de marcas que não aceitam o comum. Onde a engenharia de elite encontra o design de luxo.
+                Combinamos arquitetura de software de alta performance com design funcional para criar soluções que escalam o seu negócio.
               </p>
             </FadeIn>
           </div>
@@ -190,7 +188,7 @@ export default function Home() {
                 className="group relative px-10 py-5 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-bold tracking-tight overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Solicitar Consultoria <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                  Iniciar Projeto <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
                 </span>
                 <motion.div 
                   className="absolute inset-0 bg-white/20 dark:bg-black/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"
@@ -200,15 +198,15 @@ export default function Home() {
                 onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
                 className="text-lg font-bold tracking-tight hover:text-foreground/60 transition-colors flex items-center gap-2 group"
               >
-                Nossos Projetos <span className="w-8 h-[1px] bg-foreground/20 group-hover:w-12 transition-all duration-500" />
+                Ver Portfólio <span className="w-8 h-[1px] bg-foreground/20 group-hover:w-12 transition-all duration-500" />
               </button>
             </div>
           </FadeIn>
         </motion.div>
 
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-gray-500/5 rounded-full blur-[120px]" />
         </div>
       </section>
 
@@ -218,13 +216,13 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-32">
             <div className="max-w-2xl space-y-6">
               <FadeIn>
-                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-foreground/40">Obras Selecionadas</span>
-                <h2 className="text-5xl md:text-8xl font-bold tracking-tight leading-[0.9] mt-4">Portfólio de <br /> Excelência.</h2>
+                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-foreground/40">Projetos Selecionados</span>
+                <h2 className="text-5xl md:text-8xl font-bold tracking-tight leading-[0.9] mt-4">Trabalho <br /> em Foco.</h2>
               </FadeIn>
             </div>
             <FadeIn delay={0.2}>
               <p className="text-xl text-foreground/40 font-medium max-w-sm mb-4">
-                Cada projeto é um compromisso com a perfeição técnica e estética.
+                Resultados reais através de engenharia e design de alta performance.
               </p>
             </FadeIn>
           </div>
@@ -247,13 +245,13 @@ export default function Home() {
                   Menos ruído, <br /> mais impacto.
                 </h2>
                 <p className="text-xl text-foreground/50 font-medium leading-relaxed max-w-lg">
-                  Acreditamos que o verdadeiro luxo digital reside na simplicidade sofisticada. Cada animação tem um propósito; cada pixel tem uma intenção.
+                  Acreditamos que a clareza é o ponto mais alto da sofisticação técnica. Cada linha de código e cada decisão de design tem um propósito estratégico.
                 </p>
                 <ul className="space-y-6">
                   {[
-                    "Arquitetura de software de nível militar",
-                    "Design focado em psicologia de conversão",
-                    "Performance que desafia os limites do hardware",
+                    "Arquitetura de software escalável e segura",
+                    "Design focado em experiência de uso e conversão",
+                    "Performance otimizada para resultados reais",
                   ].map((item, i) => (
                     <motion.li 
                       key={i}
@@ -262,7 +260,7 @@ export default function Home() {
                       transition={{ delay: 0.2 + i * 0.1 }}
                       className="flex items-center gap-4 text-sm font-bold tracking-tight uppercase opacity-70"
                     >
-                      <CheckCircle2 size={18} className="text-green-500" /> {item}
+                      <CheckCircle2 size={18} className="text-blue-500" /> {item}
                     </motion.li>
                   ))}
                 </ul>
@@ -293,7 +291,7 @@ export default function Home() {
           <FadeIn>
             <div className="mb-32 text-center space-y-4">
               <h2 className="text-5xl md:text-7xl font-bold tracking-tight">O que fazemos.</h2>
-              <p className="text-xl text-foreground/40 font-medium">Excelência técnica aplicada ao crescimento do seu negócio.</p>
+              <p className="text-xl text-foreground/40 font-medium">Soluções técnicas aplicadas ao crescimento do seu negócio.</p>
             </div>
           </FadeIn>
 
@@ -301,20 +299,20 @@ export default function Home() {
             {[
               {
                 icon: <Globe size={40} strokeWidth={1.5} />,
-                title: "Digital Ecosystems",
-                desc: "Ecossistemas web robustos que integram marketing, vendas e operações em uma única interface fluida.",
+                title: "Ecossistemas Digitais",
+                desc: "Plataformas web robustas que integram marketing, vendas e operações em uma única interface fluida.",
                 tags: ["Next.js", "Cloud", "SEO"]
               },
               {
                 icon: <Smartphone size={40} strokeWidth={1.5} />,
-                title: "Mobile Experiences",
-                desc: "Aplicativos que as pessoas amam usar. Focados em retenção e experiência de usuário de alto nível.",
+                title: "Experiências Mobile",
+                desc: "Aplicativos focados em retenção e experiência de usuário, desenvolvidos para performance nativa.",
                 tags: ["iOS", "Android", "UX"]
               },
               {
                 icon: <Cpu size={40} strokeWidth={1.5} />,
-                title: "Intelligent Systems",
-                desc: "Sistemas internos e dashboards que transformam dados complexos em decisões estratégicas claras.",
+                title: "Sistemas Inteligentes",
+                desc: "Desenvolvimento de dashboards e sistemas internos que transformam dados em decisões estratégicas.",
                 tags: ["AI", "Analytics", "CRM"]
               }
             ].map((service, i) => (
@@ -353,10 +351,10 @@ export default function Home() {
           
           <div className="space-y-40">
             {[
-              { step: "01", title: "Imersão & Estratégia", desc: "Não começamos com código. Começamos com perguntas. Entendemos seu negócio tão profundamente quanto você." },
-              { step: "02", title: "Arquitetura Visual", desc: "Projetagem de interfaces que não apenas parecem bonitas, mas que guiam o usuário através de uma jornada emocional." },
-              { step: "03", title: "Desenvolvimento de Elite", desc: "Nossa engenharia foca em escalabilidade. Código limpo, testado e pronto para o crescimento global." },
-              { step: "04", title: "Evolução Contínua", desc: "O lançamento é apenas o começo. Monitoramos, otimizamos e evoluímos sua plataforma constantemente." }
+              { step: "01", title: "Imersão & Estratégia", desc: "Iniciamos com uma análise profunda do seu negócio para garantir que cada decisão técnica tenha um propósito claro." },
+              { step: "02", title: "Arquitetura Visual", desc: "Projetamos interfaces funcionais que guiam o usuário através de uma jornada intuitiva e eficiente." },
+              { step: "03", title: "Desenvolvimento de Precisão", desc: "Nossa engenharia foca em escalabilidade, segurança e código limpo, pronto para o crescimento global." },
+              { step: "04", title: "Evolução Contínua", desc: "O lançamento é apenas o ponto de partida. Monitoramos e otimizamos sua plataforma para resultados constantes." }
             ].map((item, i) => (
               <div key={i} className="flex flex-col md:flex-row gap-12 items-start relative">
                 <div className="md:sticky md:top-40 flex-shrink-0">
@@ -391,7 +389,7 @@ export default function Home() {
               Sua marca merece <br /> o extraordinário.
             </h2>
             <p className="max-w-xl mx-auto text-xl text-white/40 font-medium">
-              Estamos selecionando apenas 2 novos parceiros para este trimestre. Garanta seu lugar na elite digital.
+              Estamos selecionando novos projetos para este trimestre. Vamos conversar sobre o seu próximo desafio?
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-10 pt-8">
               <Link 
@@ -424,7 +422,7 @@ export default function Home() {
               className="mx-auto md:mx-0 grayscale"
             />
             <p className="text-xs font-bold uppercase tracking-[0.2em]">
-              © 2026 Guaiamum Digital. Built for the elite.
+              © 2026 Guaiamum Digital. Projetando o futuro digital.
             </p>
           </div>
           
