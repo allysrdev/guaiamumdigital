@@ -46,6 +46,13 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navItems = [
+    { label: "Início", id: "start" },
+    { label: "Portfólio", id: "portfolio" },
+    { label: "Serviços", id: "services" },
+    { label: "Processo", id: "process" },
+  ];
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
@@ -77,17 +84,26 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
-            {["Início", "Portfólio", "Serviços", "Processo"].map((item) => (
+            {navItems.map((item) => (
               <button
                 key={item}
-                onClick={() => scrollTo(sectionMap[item] ?? item.toLowerCase())}
+                onClick={() =>
+                  scrollTo(
+                    item === "Início"
+                      ? "start"
+                      : item
+                          .toLowerCase()
+                          .normalize("NFD")
+                          .replace(/[\u0300-\u036f]/g, ""),
+                  )
+                }
                 className={`cursor-pointer relative px-5 py-2 text-sm font-bold tracking-tight transition-all duration-500 group overflow-hidden ${
                   scrolled && isDarkSection
                     ? "text-white/50 hover:text-white"
                     : "text-foreground/50 hover:text-foreground"
                 }`}
               >
-                <span className="relative z-10">{item}</span>
+                <span className="relative z-10">{item.label}</span>
                 <span
                   className={`absolute inset-0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-full ${
                     isDarkSection ? "bg-white/10" : "bg-black/5"
@@ -144,7 +160,14 @@ export default function Header() {
                     className="text-4xl font-bold tracking-tighter"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
-                      scrollTo(sectionMap[item] ?? item.toLowerCase());
+                      scrollTo(
+                        item === "Início"
+                          ? "start"
+                          : item
+                              .toLowerCase()
+                              .normalize("NFD")
+                              .replace(/[\u0300-\u036f]/g, ""),
+                      );
                     }}
                   >
                     <motion.span
