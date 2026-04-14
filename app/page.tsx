@@ -65,7 +65,7 @@ const ProjectCard = ({ project, index }: { project: Project, index: number }) =>
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative w-full aspect-[16/10] rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/5 cursor-none md:cursor-default"
+      className="group relative w-full aspect-[16/10] rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/5 cursor-pointer"
     >
       <Link href={project.url} target="_blank" className="block w-full h-full">
         {/* Placeholder / Background - Always visible as base layer */}
@@ -204,7 +204,7 @@ export default function Home() {
       <section ref={startRef} id="start" className="relative w-full min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6">
         <motion.div 
           style={{ scale: scaleProgress, opacity: opacityProgress }}
-          className="z-10 w-full max-w-6xl text-center space-y-12"
+          className="z-10 w-full max-w-6xl text-center space-y-12 relative pointer-events-auto"
         >
           <FadeIn y={10} immediate={true}>
             <span className="inline-flex items-center gap-2 px-4 py-2 text-[10px] font-bold tracking-[0.3em] uppercase bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/5 dark:border-white/5">
@@ -219,17 +219,17 @@ export default function Home() {
             </h1>
             <FadeIn delay={0.2} immediate={true}>
               <p className="max-w-2xl mx-auto text-xl md:text-2xl text-foreground/40 font-medium leading-relaxed tracking-tight">
-                Combinamos arquitetura de software de alta performance com design funcional para criar soluções que escalam o seu negócio.
+                Combinamos arquitetura de software de alta performance com design functional para criar soluções que escalam o seu negócio.
               </p>
             </FadeIn>
           </div>
           
           <FadeIn delay={0.3} immediate={true}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4 relative z-20">
               <Link 
                 href="https://wa.me/558132998614" 
                 target="_blank"
-                className="group relative px-10 py-5 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-bold tracking-tight overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]"
+                className="group relative px-10 py-5 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-bold tracking-tight overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Iniciar Projeto <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
@@ -240,7 +240,7 @@ export default function Home() {
               </Link>
               <button 
                 onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-lg font-bold tracking-tight hover:text-foreground/60 transition-colors flex items-center gap-2 group"
+                className="text-lg font-bold tracking-tight hover:text-foreground/60 transition-colors flex items-center gap-2 group cursor-pointer"
               >
                 Ver Portfólio <span className="w-8 h-[1px] bg-foreground/20 group-hover:w-12 transition-all duration-500" />
               </button>
@@ -248,14 +248,14 @@ export default function Home() {
           </FadeIn>
         </motion.div>
 
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-gray-500/5 rounded-full blur-[120px]" />
         </div>
       </section>
 
       {/* PORTFOLIO SECTION */}
-      <section ref={portfolioRef} id="portfolio" className="w-full py-40 px-6 bg-white dark:bg-black">
+      <section ref={portfolioRef} id="portfolio" className="w-full py-40 px-6 bg-white dark:bg-black relative z-10">
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-32">
             <div className="max-w-2xl space-y-6">
@@ -280,7 +280,7 @@ export default function Home() {
       </section>
 
       {/* PHILOSOPHY SECTION */}
-      <section className="w-full py-40 px-6 bg-white dark:bg-black">
+      <section className="w-full py-40 px-6 bg-white dark:bg-black relative z-10">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
             <FadeIn>
@@ -322,7 +322,7 @@ export default function Home() {
                     <span className="text-4xl font-bold tracking-tighter mb-2">{stat.value}</span>
                     <span className="text-[10px] font-bold uppercase tracking-widest opacity-40 group-hover:opacity-100">{stat.label}</span>
                   </div>
-                </FadeIn>
+                </FadeIn>Stat
               ))}
             </div>
           </div>
@@ -330,7 +330,7 @@ export default function Home() {
       </section>
 
       {/* SERVICES */}
-      <section ref={servicesRef} id="services" className="w-full py-40 px-6 bg-gray-50 dark:bg-white/[0.02]">
+      <section ref={servicesRef} id="services" className="w-full py-40 px-6 bg-gray-50 dark:bg-white/[0.02] relative z-10">
         <div className="container mx-auto max-w-7xl">
           <FadeIn>
             <div className="mb-32 text-center space-y-4">
@@ -356,7 +356,7 @@ export default function Home() {
               {
                 icon: <Code2 size={40} strokeWidth={1.5} />,
                 title: "Desenvolvimento Web Responsivo",
-                desc: "Engenharia de software de alta performance para sites e platforms que funcionam perfeitamente em qualquer dispositivo.",
+                desc: "Engenharia de software de alta performance para sites e plataformas que funcionam perfeitamente em qualquer dispositivo.",
                 tags: ["Next.js", "React", "Performance"]
               }
             ].map((service, i) => (
@@ -387,7 +387,7 @@ export default function Home() {
       </section>
 
       {/* PROCESS */}
-      <section ref={processRef} id="process" className="w-full py-40 px-6">
+      <section ref={processRef} id="process" className="w-full py-40 px-6 relative z-10">
         <div className="container mx-auto max-w-5xl">
           <FadeIn>
             <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-center mb-40">Nosso Processo.</h2>
@@ -417,7 +417,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section ref={contactRef} id="contact" className="w-full py-20 md:py-40 px-6">
+      <section ref={contactRef} id="contact" className="w-full py-20 md:py-40 px-6 relative z-10">
         <motion.div 
           initial={{ scale: 0.95, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
@@ -435,17 +435,17 @@ export default function Home() {
             <p className="max-w-xl mx-auto text-base md:text-xl text-white/40 font-medium">
               Estamos selecionando novos projetos para este trimestre. Vamos conversar sobre o seu próximo desafio?
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-10 pt-4 md:pt-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-10 pt-4 md:pt-8 relative z-20">
               <Link 
                 href="https://wa.me/558132998614" 
                 target="_blank"
-                className="w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-white text-black rounded-full text-lg md:text-xl font-bold hover:scale-105 transition-transform duration-500 shadow-2xl"
+                className="w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-white text-black rounded-full text-lg md:text-xl font-bold hover:scale-105 transition-transform duration-500 shadow-2xl cursor-pointer"
               >
                 Agendar Conversa
               </Link>
               <a 
                 href="mailto:contato@guaiamumdigital.com.br"
-                className="text-base md:text-lg font-bold hover:text-white/60 transition-colors border-b border-white/20 pb-1"
+                className="text-base md:text-lg font-bold hover:text-white/60 transition-colors border-b border-white/20 pb-1 cursor-pointer"
               >
                 contato@guaiamumdigital.com.br
               </a>
@@ -455,7 +455,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="w-full py-20 px-6">
+      <footer className="w-full py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-12 opacity-40 hover:opacity-100 transition-opacity duration-700">
           <div className="space-y-4 text-center md:text-left">
             <Image
@@ -470,13 +470,13 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="flex gap-12">
+          <div className="flex gap-12 relative z-20">
             {['Instagram', 'LinkedIn', 'GitHub'].map(social => ( social === 'GitHub' ? (
-              <Link key={social} href="https://github.com/allysrdev" target="_blank" className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors">
+              <Link key={social} href="https://github.com/allysrdev" target="_blank" className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors cursor-pointer">
                 {social}
               </Link>
             ) : (
-              <Link key={social} href="#" className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors">
+              <Link key={social} href="#" className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors cursor-pointer">
                 {social}
               </Link>
             )))}
