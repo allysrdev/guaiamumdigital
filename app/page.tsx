@@ -322,7 +322,7 @@ export default function Home() {
                     <span className="text-4xl font-bold tracking-tighter mb-2">{stat.value}</span>
                     <span className="text-[10px] font-bold uppercase tracking-widest opacity-40 group-hover:opacity-100">{stat.label}</span>
                   </div>
-                </FadeIn>Stat
+                </FadeIn>
               ))}
             </div>
           </div>
