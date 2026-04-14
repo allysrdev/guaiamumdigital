@@ -12,13 +12,6 @@ export default function Header() {
   const [isDarkSection, setIsDarkSection] = useState(false);
   const { scrollTo } = useScroll();
 
-  const sectionMap: Record<string, string> = {
-    Início: "start",
-    Portfólio: "portfolio",
-    Serviços: "services",
-    Processo: "process",
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -45,13 +38,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navItems = [
-    { label: "Início", id: "start" },
-    { label: "Portfólio", id: "portfolio" },
-    { label: "Serviços", id: "services" },
-    { label: "Processo", id: "process" },
-  ];
 
   return (
     <header
@@ -84,7 +70,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
+            {["Início", "Portfólio", "Serviços", "Processo"].map((item) => (
               <button
                 key={item}
                 onClick={() =>
@@ -103,7 +89,7 @@ export default function Header() {
                     : "text-foreground/50 hover:text-foreground"
                 }`}
               >
-                <span className="relative z-10">{item.label}</span>
+                <span className="relative z-10">{item}</span>
                 <span
                   className={`absolute inset-0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-full ${
                     isDarkSection ? "bg-white/10" : "bg-black/5"
