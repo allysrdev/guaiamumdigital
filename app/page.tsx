@@ -1,22 +1,43 @@
 'use client'
 import Header from "@/components/Header";
 import { useScroll } from "@/contexts/scroll";
-import { ArrowRight, ShieldCheck, Globe, Cpu, Smartphone, Zap } from "lucide-react";
+import { ArrowRight, Globe, Cpu, Smartphone, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { RefObject, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll as useFramerScroll, useTransform, useSpring } from "framer-motion";
 
-const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
+const FadeIn = ({ children, delay = 0, y = 30 }: { children: React.ReactNode; delay?: number; y?: number }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={{ opacity: 0, y }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
   >
     {children}
   </motion.div>
 );
+
+const RevealText = ({ text }: { text: string }) => {
+  const words = text.split(" ");
+  return (
+    <div className="flex flex-wrap justify-center gap-x-[0.2em] gap-y-0">
+      {words.map((word, i) => (
+        <span key={i} className="overflow-hidden inline-block py-[0.1em] -my-[0.1em]">
+          <motion.span
+            initial={{ y: "100%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-block"
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </div>
+  );
+};
 
 export default function Home() {
   const contactRef = useRef<HTMLDivElement>(null);
@@ -24,6 +45,10 @@ export default function Home() {
   const servicesRef = useRef<HTMLDivElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
   const { registerRef } = useScroll();
+  
+  const { scrollYProgress } = useFramerScroll();
+  const scaleProgress = useSpring(useTransform(scrollYProgress, [0, 0.2], [1, 0.9]), { stiffness: 100, damping: 30 });
+  const opacityProgress = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   useEffect(() => {
     registerRef('start', startRef as RefObject<HTMLElement>);
@@ -34,243 +59,281 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center w-full overflow-x-hidden bg-white dark:bg-black selection:bg-black selection:text-white">
+      <div className="noise fixed inset-0 z-[100] mix-blend-overlay opacity-5 pointer-events-none" />
       <Header />
       
-      {/* HERO SECTION - THE APPLE WAY */}
-      <section ref={startRef} id="start" className="relative flex flex-col w-full min-h-screen items-center justify-center pt-32 pb-20 px-6">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_100%)] from-gray-100/50 dark:from-gray-900/20 to-transparent pointer-events-none" />
-        
-        <div className="z-10 w-full max-w-5xl text-center space-y-8">
-          <FadeIn>
-            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] uppercase bg-black/5 dark:bg-white/10 rounded-full">
-              Premium Digital Studio
+      {/* HERO SECTION - IMMERSIVE SCALE DOWN */}
+      <section ref={startRef} id="start" className="relative w-full min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6">
+        <motion.div 
+          style={{ scale: scaleProgress, opacity: opacityProgress }}
+          className="z-10 w-full max-w-6xl text-center space-y-12"
+        >
+          <FadeIn y={10}>
+            <span className="inline-flex items-center gap-2 px-4 py-2 text-[10px] font-bold tracking-[0.3em] uppercase bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/5 dark:border-white/5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              Disponível para novos projetos
             </span>
           </FadeIn>
           
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-[1.05] text-gradient">
-              Elevamos sua presença <br className="hidden md:block" /> digital ao nível global.
+          <div className="space-y-6">
+            <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-[-0.06em] leading-[0.85] text-gradient py-2">
+              <RevealText text="Elegância em cada pixel." />
             </h1>
-          </FadeIn>
+            <FadeIn delay={0.4}>
+              <p className="max-w-2xl mx-auto text-xl md:text-2xl text-foreground/40 font-medium leading-relaxed tracking-tight">
+                Projetamos o futuro digital de marcas que não aceitam o comum. Onde a engenharia de elite encontra o design de luxo.
+              </p>
+            </FadeIn>
+          </div>
           
-          <FadeIn delay={0.2}>
-            <p className="max-w-2xl mx-auto text-lg md:text-xl text-foreground/60 font-medium leading-relaxed">
-              Não construímos apenas sites. Projetamos experiências digitais de alta performance para marcas que exigem excelência, sofisticação e resultados exponenciais.
-            </p>
-          </FadeIn>
-          
-          <FadeIn delay={0.3}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+          <FadeIn delay={0.6}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-4">
               <Link 
                 href="https://wa.me/558132998614" 
                 target="_blank"
-                className="group px-8 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-semibold tracking-tight hover:scale-105 transition-all duration-300 shadow-2xl shadow-black/20"
+                className="group relative px-10 py-5 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-bold tracking-tight overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]"
               >
-                Solicitar Consultoria
-                <ArrowRight className="inline-block ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                <span className="relative z-10 flex items-center gap-2">
+                  Solicitar Consultoria <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                </span>
+                <motion.div 
+                  className="absolute inset-0 bg-white/20 dark:bg-black/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+                />
               </Link>
               <button 
                 onClick={() => servicesRef.current?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-4 text-lg font-semibold tracking-tight hover:text-foreground/80 transition-colors"
+                className="text-lg font-bold tracking-tight hover:text-foreground/60 transition-colors flex items-center gap-2 group"
               >
-                Ver Portfólio
+                Nossos Projetos <span className="w-8 h-[1px] bg-foreground/20 group-hover:w-12 transition-all duration-500" />
               </button>
             </div>
           </FadeIn>
-        </div>
+        </motion.div>
 
-        {/* HERO IMAGE/MOCKUP AREA */}
-        <FadeIn delay={0.5}>
-          <div className="mt-24 w-full max-w-7xl px-4">
-            <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-black/5">
-              <Image
-                src='/web-development.png'
-                alt="High Ticket Digital Solutions"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-          </div>
-        </FadeIn>
-      </section>
-
-      {/* STATS / TRUST SECTION */}
-      <section className="w-full py-20 border-y border-black/5 bg-gray-50/30 dark:bg-white/5">
-        <div className="container mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-            {[
-              { label: "Projetos Entregues", value: "50+" },
-              { label: "Satisfação", value: "100%" },
-              { label: "ROI Médio", value: "3.5x" },
-              { label: "Países", value: "05" },
-            ].map((stat, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div className="space-y-1">
-                  <h4 className="text-3xl md:text-4xl font-bold tracking-tight">{stat.value}</h4>
-                  <p className="text-sm font-medium text-foreground/40 uppercase tracking-widest">{stat.label}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
+        {/* FLOATING DECORATIVE ELEMENTS */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
         </div>
       </section>
 
-      {/* SERVICES SECTION */}
-      <section ref={servicesRef} id="services" className="w-full py-32 px-6">
+      {/* MOCKUP SECTION - PARALLAX EFFECT */}
+      <section className="w-full max-w-[1440px] px-6 md:px-12 -mt-20 z-20">
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="relative aspect-[21/9] w-full rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-[0_60px_120px_-20px_rgba(0,0,0,0.4)] border border-white/10"
+        >
+          <Image
+            src='/web-development.png'
+            alt="Premium Project Showcase"
+            fill
+            className="object-cover scale-105 hover:scale-100 transition-transform duration-[2s] ease-out"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40" />
+        </motion.div>
+      </section>
+
+      {/* PHILOSOPHY SECTION - QUIET LUXURY */}
+      <section className="w-full py-40 px-6 bg-white dark:bg-black">
         <div className="container mx-auto max-w-7xl">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-24">
-            <div className="max-w-2xl space-y-6">
-              <FadeIn>
-                <h2 className="text-4xl md:text-6xl font-bold tracking-tight">Serviços Especializados para Negócios High-Ticket.</h2>
-              </FadeIn>
-              <FadeIn delay={0.1}>
-                <p className="text-xl text-foreground/60 leading-relaxed">
-                  Dominamos as tecnologias que as maiores empresas do mundo utilizam para escalar com segurança e elegância.
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+            <FadeIn>
+              <div className="space-y-8">
+                <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[0.95]">
+                  Menos ruído, <br /> mais impacto.
+                </h2>
+                <p className="text-xl text-foreground/50 font-medium leading-relaxed max-w-lg">
+                  Acreditamos que o verdadeiro luxo digital reside na simplicidade sofisticada. Cada animação tem um propósito; cada pixel tem uma intenção.
                 </p>
-              </FadeIn>
+                <ul className="space-y-6">
+                  {[
+                    "Arquitetura de software de nível militar",
+                    "Design focado em psicologia de conversão",
+                    "Performance que desafia os limites do hardware",
+                  ].map((item, i) => (
+                    <motion.li 
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + i * 0.1 }}
+                      className="flex items-center gap-4 text-sm font-bold tracking-tight uppercase opacity-70"
+                    >
+                      <CheckCircle2 size={18} className="text-green-500" /> {item}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+            <div className="grid grid-cols-2 gap-8">
+              {[
+                { label: "Performance Score", value: "100" },
+                { label: "Uptime Garantido", value: "99.9%" },
+                { label: "Projetos Ativos", value: "12" },
+                { label: "NPS Médio", value: "9.8" },
+              ].map((stat, i) => (
+                <FadeIn key={i} delay={i * 0.1} y={20}>
+                  <div className="p-10 bg-gray-50 dark:bg-white/5 rounded-[2rem] border border-black/5 dark:border-white/5 flex flex-col justify-center items-center text-center group hover:bg-black hover:text-white transition-all duration-500">
+                    <span className="text-4xl font-bold tracking-tighter mb-2">{stat.value}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest opacity-40 group-hover:opacity-100">{stat.label}</span>
+                  </div>
+                </FadeIn>
+              ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* SERVICES - INTERACTIVE CARDS */}
+      <section ref={servicesRef} id="services" className="w-full py-40 px-6 bg-gray-50 dark:bg-white/[0.02]">
+        <div className="container mx-auto max-w-7xl">
+          <FadeIn>
+            <div className="mb-32 text-center space-y-4">
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tight">O que fazemos.</h2>
+              <p className="text-xl text-foreground/40 font-medium">Excelência técnica aplicada ao crescimento do seu negócio.</p>
+            </div>
+          </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Globe className="text-black dark:text-white" size={32} />,
-                title: "Plataformas Web Premium",
-                desc: "Sites institucionais e e-commerces de alto padrão com foco em conversão e autoridade de marca."
+                icon: <Globe size={40} strokeWidth={1.5} />,
+                title: "Digital Ecosystems",
+                desc: "Ecossistemas web robustos que integram marketing, vendas e operações em uma única interface fluida.",
+                tags: ["Next.js", "Cloud", "SEO"]
               },
               {
-                icon: <Smartphone className="text-black dark:text-white" size={32} />,
-                title: "Apps Mobile Nativos",
-                desc: "Experiências móveis fluidas e intuitivas desenvolvidas para iOS e Android com tecnologia de ponta."
+                icon: <Smartphone size={40} strokeWidth={1.5} />,
+                title: "Mobile Experiences",
+                desc: "Aplicativos que as pessoas amam usar. Focados em retenção e experiência de usuário de alto nível.",
+                tags: ["iOS", "Android", "UX"]
               },
               {
-                icon: <Cpu className="text-black dark:text-white" size={32} />,
-                title: "Sistemas Customizados",
-                desc: "Automação de processos complexos e dashboards inteligentes para gestão eficiente do seu negócio."
+                icon: <Cpu size={40} strokeWidth={1.5} />,
+                title: "Intelligent Systems",
+                desc: "Sistemas internos e dashboards que transformam dados complexos em decisões estratégicas claras.",
+                tags: ["AI", "Analytics", "CRM"]
               }
             ].map((service, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div className="group p-10 bg-gray-50 dark:bg-white/5 rounded-[2.5rem] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-500 cursor-default h-full border border-black/5">
-                  <div className="mb-8 p-4 bg-white dark:bg-black/20 w-fit rounded-2xl shadow-sm group-hover:scale-110 transition-transform duration-500">
+                <motion.div 
+                  whileHover={{ y: -10 }}
+                  className="group relative p-12 bg-white dark:bg-white/5 rounded-[3rem] border border-black/5 dark:border-white/5 h-full flex flex-col overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700"
+                >
+                  <div className="mb-10 p-5 bg-black text-white dark:bg-white dark:text-black w-fit rounded-2xl group-hover:rotate-6 transition-transform duration-500">
                     {service.icon}
                   </div>
-                  <h3 className="text-2xl font-bold mb-4 tracking-tight">{service.title}</h3>
-                  <p className="text-foreground/60 group-hover:text-white/80 dark:group-hover:text-black/70 leading-relaxed">
+                  <h3 className="text-3xl font-bold mb-6 tracking-tight">{service.title}</h3>
+                  <p className="text-foreground/50 font-medium leading-relaxed mb-10 flex-grow">
                     {service.desc}
                   </p>
-                </div>
+                  <div className="flex gap-3">
+                    {service.tags.map(tag => (
+                      <span key={tag} className="px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-[10px] font-bold uppercase tracking-widest opacity-60">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
               </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
-      {/* PROCESS SECTION */}
-      <section ref={processRef} id="process" className="w-full py-32 bg-black text-white">
-        <div className="container mx-auto max-w-7xl px-6">
-          <div className="text-center mb-24 space-y-6">
-            <FadeIn>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tight">O Caminho para a Excelência.</h2>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <p className="max-w-2xl mx-auto text-xl text-white/60">
-                Nosso método exclusivo garante que cada pixel e cada linha de código estejam alinhados aos seus objetivos comerciais.
-              </p>
-            </FadeIn>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-            {[
-              { step: "01", title: "Imersão Estratégica", desc: "Análise profunda do seu modelo de negócio e público-alvo." },
-              { step: "02", title: "Design de Experiência", desc: "Criação de interfaces refinadas com foco em usabilidade e desejo." },
-              { step: "03", title: "Engenharia de Software", desc: "Desenvolvimento robusto, escalável e com performance extrema." },
-              { step: "04", title: "Lançamento & Evolução", desc: "Deploy otimizado e acompanhamento contínuo de métricas de sucesso." }
-            ].map((item, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div className="relative space-y-6">
-                  <span className="text-5xl font-bold opacity-20 block">{item.step}</span>
-                  <h4 className="text-xl font-bold tracking-tight">{item.title}</h4>
-                  <p className="text-white/50 leading-relaxed">{item.desc}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA / CONTACT SECTION */}
-      <section ref={contactRef} id="contact" className="w-full py-40 px-6">
-        <div className="container mx-auto max-w-5xl bg-gray-50 dark:bg-white/5 rounded-[3rem] p-12 md:p-24 text-center border border-black/5 overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-black dark:via-white to-transparent opacity-20" />
-          
+      {/* PROCESS - THE IMMERSIVE TIMELINE */}
+      <section ref={processRef} id="process" className="w-full py-40 px-6">
+        <div className="container mx-auto max-w-5xl">
           <FadeIn>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">
-              Pronto para o próximo nível?
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-center mb-40">Nosso Processo.</h2>
+          </FadeIn>
+          
+          <div className="space-y-40">
+            {[
+              { step: "01", title: "Imersão & Estratégia", desc: "Não começamos com código. Começamos com perguntas. Entendemos seu negócio tão profundamente quanto você." },
+              { step: "02", title: "Arquitetura Visual", desc: "Projetagem de interfaces que não apenas parecem bonitas, mas que guiam o usuário através de uma jornada emocional." },
+              { step: "03", title: "Desenvolvimento de Elite", desc: "Nossa engenharia foca em escalabilidade. Código limpo, testado e pronto para o crescimento global." },
+              { step: "04", title: "Evolução Contínua", desc: "O lançamento é apenas o começo. Monitoramos, otimizamos e evoluímos sua plataforma constantemente." }
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col md:flex-row gap-12 items-start relative">
+                <div className="md:sticky md:top-40 flex-shrink-0">
+                  <span className="text-8xl font-bold tracking-tighter opacity-10 leading-none">{item.step}</span>
+                </div>
+                <FadeIn delay={0.2}>
+                  <div className="space-y-6 pt-4">
+                    <h4 className="text-4xl font-bold tracking-tight">{item.title}</h4>
+                    <p className="text-xl text-foreground/50 font-medium leading-relaxed max-w-xl">{item.desc}</p>
+                  </div>
+                </FadeIn>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA - THE FINAL CONVERSION */}
+      <section ref={contactRef} id="contact" className="w-full py-40 px-6">
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="container mx-auto max-w-6xl bg-black text-white rounded-[4rem] p-12 md:p-32 text-center relative overflow-hidden shadow-[0_100px_150px_-50px_rgba(0,0,0,0.6)]"
+        >
+          <div className="absolute inset-0 noise opacity-10 pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+          
+          <div className="relative z-10 space-y-12">
+            <h2 className="text-5xl md:text-8xl font-bold tracking-tight leading-[0.9]">
+              Sua marca merece <br /> o extraordinário.
             </h2>
-          </FadeIn>
-          
-          <FadeIn delay={0.1}>
-            <p className="text-xl text-foreground/60 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Estamos selecionando novos projetos para este trimestre. Se você busca exclusividade e resultados reais, agende uma conversa estratégica.
+            <p className="max-w-xl mx-auto text-xl text-white/40 font-medium">
+              Estamos selecionando apenas 2 novos parceiros para este trimestre. Garanta seu lugar na elite digital.
             </p>
-          </FadeIn>
-          
-          <FadeIn delay={0.2}>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-10 pt-8">
               <Link 
                 href="https://wa.me/558132998614" 
                 target="_blank"
-                className="w-full md:w-auto px-12 py-5 bg-black text-white dark:bg-white dark:text-black rounded-full text-lg font-bold hover:scale-105 transition-transform shadow-xl"
+                className="px-12 py-6 bg-white text-black rounded-full text-xl font-bold hover:scale-105 transition-transform duration-500 shadow-2xl"
               >
-                Falar com Especialista
+                Agendar Conversa
               </Link>
               <a 
                 href="mailto:contato@guaiamumdigital.com.br"
-                className="text-lg font-semibold hover:underline underline-offset-8 transition-all"
+                className="text-lg font-bold hover:text-white/60 transition-colors border-b border-white/20 pb-1"
               >
                 contato@guaiamumdigital.com.br
               </a>
             </div>
-          </FadeIn>
-          
-          <div className="mt-20 pt-10 border-t border-black/5 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm font-medium text-foreground/40 uppercase tracking-widest">
-            <div className="flex items-center justify-center gap-2">
-              <ShieldCheck size={18} /> Qualidade Garantida
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Zap size={18} /> Performance Extrema
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Globe size={18} /> Alcance Global
-            </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* FOOTER */}
-      <footer className="w-full py-20 px-6 border-t border-black/5">
-        <div className="container mx-auto max-w-7xl">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-12">
-            <div className="space-y-4 text-center md:text-left">
-              <Image
-                src="/logogd-nobg.png"
-                alt="Guaiamum Digital"
-                width={150}
-                height={50}
-                className="mx-auto md:mx-0 opacity-80"
-              />
-              <p className="text-sm text-foreground/40 font-medium">
-                © 2026 Guaiamum Digital. Projetando o futuro, um pixel de cada vez.
-              </p>
-            </div>
-            
-            <div className="flex gap-10">
-              <Link href="#" className="text-sm font-semibold text-foreground/60 hover:text-foreground transition-colors">Instagram</Link>
-              <Link href="#" className="text-sm font-semibold text-foreground/60 hover:text-foreground transition-colors">LinkedIn</Link>
-              <Link href="#" className="text-sm font-semibold text-foreground/60 hover:text-foreground transition-colors">GitHub</Link>
-            </div>
+      <footer className="w-full py-20 px-6">
+        <div className="container mx-auto max-w-7xl flex flex-col md:flex-row justify-between items-center gap-12 opacity-40 hover:opacity-100 transition-opacity duration-700">
+          <div className="space-y-4 text-center md:text-left">
+            <Image
+              src="/logogd-nobg.png"
+              alt="Guaiamum Digital"
+              width={140}
+              height={40}
+              className="mx-auto md:mx-0 grayscale"
+            />
+            <p className="text-xs font-bold uppercase tracking-[0.2em]">
+              © 2026 Guaiamum Digital. Built for the elite.
+            </p>
+          </div>
+          
+          <div className="flex gap-12">
+            {['Instagram', 'LinkedIn', 'GitHub'].map(social => (
+              <Link key={social} href="#" className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors">
+                {social}
+              </Link>
+            ))}
           </div>
         </div>
       </footer>
