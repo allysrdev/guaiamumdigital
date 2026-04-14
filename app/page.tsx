@@ -1,7 +1,7 @@
 'use client'
 import Header from "@/components/Header";
 import { useScroll } from "@/contexts/scroll";
-import { ArrowRight, Globe, Cpu, Smartphone, CheckCircle2, ExternalLink } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink, Search, Layout, Code2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { RefObject, useEffect, useRef } from "react";
@@ -298,22 +298,22 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Globe size={40} strokeWidth={1.5} />,
-                title: "Ecossistemas Digitais",
-                desc: "Plataformas web robustas que integram marketing, vendas e operações em uma única interface fluida.",
-                tags: ["Next.js", "Cloud", "SEO"]
+                icon: <Search size={40} strokeWidth={1.5} />,
+                title: "Diagnóstico de Presença Digital",
+                desc: "Análise técnica e estratégica profunda para identificar gargalos e oportunidades de crescimento na sua infraestrutura digital atual.",
+                tags: ["Auditoria", "SEO", "Estratégia"]
               },
               {
-                icon: <Smartphone size={40} strokeWidth={1.5} />,
-                title: "Experiências Mobile",
-                desc: "Aplicativos focados em retenção e experiência de usuário, desenvolvidos para performance nativa.",
-                tags: ["iOS", "Android", "UX"]
+                icon: <Layout size={40} strokeWidth={1.5} />,
+                title: "UX / UI",
+                desc: "Projetagem de interfaces intuitivas focadas na jornada do usuário, unindo estética funcional e psicologia de conversão.",
+                tags: ["Design", "Prototipagem", "UX"]
               },
               {
-                icon: <Cpu size={40} strokeWidth={1.5} />,
-                title: "Sistemas Inteligentes",
-                desc: "Desenvolvimento de dashboards e sistemas internos que transformam dados em decisões estratégicas.",
-                tags: ["AI", "Analytics", "CRM"]
+                icon: <Code2 size={40} strokeWidth={1.5} />,
+                title: "Desenvolvimento Web Responsivo",
+                desc: "Engenharia de software de alta performance para sites e plataformas que funcionam perfeitamente em qualquer dispositivo.",
+                tags: ["Next.js", "React", "Performance"]
               }
             ].map((service, i) => (
               <FadeIn key={i} delay={i * 0.1}>
