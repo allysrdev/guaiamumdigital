@@ -74,14 +74,7 @@ export default function Header() {
               <button
                 key={item}
                 onClick={() =>
-                  scrollTo(
-                    item === "Início"
-                      ? "start"
-                      : item
-                          .toLowerCase()
-                          .normalize("NFD")
-                          .replace(/[\u0300-\u036f]/g, ""),
-                  )
+                  scrollTo(item === "Início" ? "start" : item.toLowerCase())
                 }
                 className={`cursor-pointer relative px-5 py-2 text-sm font-bold tracking-tight transition-all duration-500 group overflow-hidden ${
                   scrolled && isDarkSection
