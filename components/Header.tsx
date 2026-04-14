@@ -12,6 +12,13 @@ export default function Header() {
   const [isDarkSection, setIsDarkSection] = useState(false);
   const { scrollTo } = useScroll();
 
+  const sectionMap: Record<string, string> = {
+    Início: "start",
+    Portfólio: "portfolio",
+    Serviços: "services",
+    Processo: "process",
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -73,16 +80,7 @@ export default function Header() {
             {["Início", "Portfólio", "Serviços", "Processo"].map((item) => (
               <button
                 key={item}
-                onClick={() =>
-                  scrollTo(
-                    item === "Início"
-                      ? "start"
-                      : item
-                          .toLowerCase()
-                          .normalize("NFD")
-                          .replace(/[\u0300-\u036f]/g, ""),
-                  )
-                }
+                onClick={() => scrollTo(sectionMap[item] ?? item.toLowerCase())}
                 className={`cursor-pointer relative px-5 py-2 text-sm font-bold tracking-tight transition-all duration-500 group overflow-hidden ${
                   scrolled && isDarkSection
                     ? "text-white/50 hover:text-white"
@@ -146,14 +144,7 @@ export default function Header() {
                     className="text-4xl font-bold tracking-tighter"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
-                      scrollTo(
-                        item === "Início"
-                          ? "start"
-                          : item
-                              .toLowerCase()
-                              .normalize("NFD")
-                              .replace(/[\u0300-\u036f]/g, ""),
-                      );
+                      scrollTo(sectionMap[item] ?? item.toLowerCase());
                     }}
                   >
                     <motion.span
