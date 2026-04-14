@@ -99,7 +99,7 @@ export default function Header() {
             ))}
             <button
               onClick={() => scrollTo("contact")}
-              className={`ml-6 px-7 py-2.5 rounded-full text-sm font-bold tracking-tight transition-all duration-500 hover:-translate-y-0.5 active:scale-95 ${
+              className={` cursor-pointer ml-6 px-7 py-2.5 rounded-full text-sm font-bold tracking-tight transition-all duration-500 hover:-translate-y-0.5 active:scale-95 ${
                 scrolled && isDarkSection
                   ? "bg-white text-black hover:shadow-[0_10px_20px_-5px_rgba(255,255,255,0.2)]"
                   : "bg-black text-white hover:shadow-[0_10px_20px_-5px_rgba(0,0,0,0.3)]"
