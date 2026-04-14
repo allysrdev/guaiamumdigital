@@ -12,6 +12,7 @@ interface Project {
   category: string;
   description: string;
   url: string;
+  image: string;
 }
 
 const FadeIn = ({ children, delay = 0, y = 30 }: { children: React.ReactNode; delay?: number; y?: number }) => (
@@ -47,33 +48,68 @@ const RevealText = ({ text }: { text: string }) => {
 };
 
 const ProjectCard = ({ project, index }: { project: Project, index: number }) => {
+  const cardRef = useRef(null);
+  const { scrollYProgress } = useFramerScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Mobile scroll reveal logic: Image opacity based on its position in viewport
+  const mobileImageOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.7], [0, 1, 0]);
+  const mobileImageScale = useTransform(scrollYProgress, [0.3, 0.5, 0.7], [0.9, 1, 0.9]);
+
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative w-full aspect-[16/10] rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/5"
+      className="group relative w-full aspect-[16/10] rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/5 cursor-none md:cursor-default"
     >
       <Link href={project.url} target="_blank" className="block w-full h-full">
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        {/* Desktop Hover Image */}
+        <div className="hidden md:block absolute inset-0 z-0">
+          <Image 
+            src={project.image} 
+            alt={project.title}
+            fill
+            className="object-cover opacity-0 group-hover:opacity-100 scale-110 group-hover:scale-100 transition-all duration-1000 ease-out grayscale group-hover:grayscale-0"
+          />
+        </div>
+
+        {/* Mobile Scroll Image */}
+        <motion.div 
+          style={{ opacity: mobileImageOpacity, scale: mobileImageScale }}
+          className="md:hidden absolute inset-0 z-0"
+        >
+          <Image 
+            src={project.image} 
+            alt={project.title}
+            fill
+            className="object-cover"
+          />
+        </motion.div>
+
+        {/* Overlay & Content */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-700" />
         
-        <div className="absolute inset-x-0 bottom-0 z-20 p-8 md:p-12 translate-y-6 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out">
+        <div className="absolute inset-x-0 bottom-0 z-20 p-8 md:p-12 translate-y-0 md:translate-y-6 md:group-hover:translate-y-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-700 ease-out">
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2 block">{project.category}</span>
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tighter">{project.title}</h3>
           <p className="text-white/70 max-w-md text-sm md:text-base font-medium leading-relaxed mb-6">
             {project.description}
           </p>
           <div className="flex items-center gap-2 text-white font-bold text-sm uppercase tracking-widest">
-            Visualizar <ExternalLink size={16} />
+            Explorar Obra <ExternalLink size={16} />
           </div>
         </div>
 
-        <div className="w-full h-full relative scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-out">
-           <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-white/5">
-              <span className="text-foreground/10 font-bold text-8xl md:text-[12rem] tracking-tighter select-none">{project.title[0]}</span>
-           </div>
-           <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5" />
+        {/* Placeholder / Background when image is hidden */}
+        <div className="absolute inset-0 -z-10 flex items-center justify-center bg-gray-50 dark:bg-white/[0.02]">
+          <span className="text-foreground/5 font-bold text-8xl md:text-[12rem] tracking-tighter select-none uppercase">
+            {project.title.split(' ').map(w => w[0]).join('')}
+          </span>
         </div>
       </Link>
     </motion.div>
@@ -104,50 +140,58 @@ export default function Home() {
     {
       title: "Shopping Afogados",
       category: "E-commerce & Portal",
-      description: "Infraestrutura digital completa para gestão e vendas de um centro comercial regional.",
-      url: "https://shopping-afogados-site.vercel.app/"
+      description: "Engenharia de plataforma para gestão e vendas de um dos principais centros comerciais da região.",
+      url: "https://shopping-afogados-site.vercel.app/",
+      image: "/projects/shopping-afogados.png"
     },
     {
       title: "Larissa Layme",
       category: "Institutional",
-      description: "Plataforma focada em autoridade e presença digital para o setor jurídico solar.",
-      url: "https://larissa-layme-solar.vercel.app/"
+      description: "Posicionamento digital de alta autoridade para o setor jurídico de energia solar.",
+      url: "https://larissa-layme-solar.vercel.app/",
+      image: "/projects/larissa-layme.png"
     },
     {
       title: "Hollywood Forever",
       category: "Entertainment",
-      description: "Interface de alta performance para streaming e distribuição de conteúdo audiovisual.",
-      url: "https://hollywoodforevertv.vercel.app/"
+      description: "Arquitetura de interface fluida para streaming e curadoria de conteúdo audiovisual.",
+      url: "https://hollywoodforevertv.vercel.app/",
+      image: "/projects/hollywood-forever.webp"
     },
     {
       title: "Maria Boleria",
       category: "Brand Experience",
-      description: "Presença digital otimizada para conversão e engajamento de marca no setor alimentício.",
-      url: "https://mariaboleria.vercel.app/"
+      description: "Ecossistema digital focado em conversão e experiência tátil de marca no setor gastronômico.",
+      url: "https://mariaboleria.vercel.app/",
+      image: "/projects/maria-boleria.webp"
     },
     {
       title: "AMDTS",
       category: "Corporate System",
-      description: "Desenvolvimento de sistemas robustos para gestão de dados e processos empresariais.",
-      url: "https://amdts.com.br/"
+      description: "Sistemas robustos de gestão e infraestrutura de dados para organizações de saúde.",
+      url: "https://amdts.com.br/",
+      image: "/projects/amdts.webp"
     },
     {
       title: "BRM Engenharia",
       category: "Industrial Tech",
-      description: "Solução digital sólida para grandes operações de engenharia e infraestrutura.",
-      url: "https://brmengenharia.com.br/"
+      description: "Plataforma de presença sólida para operações complexas de engenharia predial.",
+      url: "https://brmengenharia.com.br/",
+      image: "/projects/brm-engenharia.webp"
     },
     {
       title: "Hoje App",
       category: "Product / SaaS",
-      description: "Aplicação focada em produtividade e gestão de fluxos de trabalho modernos.",
-      url: "https://hoje.allysr.dev/"
+      description: "Interface minimalista focada em produtividade extrema e fluxos de trabalho simplificados.",
+      url: "https://hoje.allysr.dev/",
+      image: "/projects/hoje-app.webp"
     },
     {
       title: "Ignite Shop",
       category: "E-commerce Tech",
-      description: "Implementação de storefront de alto desempenho com arquitetura escalável.",
-      url: "https://igniteshop-liart.vercel.app/"
+      description: "Implementação de storefront de alto desempenho com arquitetura escalável e moderna.",
+      url: "https://igniteshop-liart.vercel.app/",
+      image: "/projects/ignite-shop.webp"
     }
   ];
 
@@ -175,7 +219,7 @@ export default function Home() {
             </h1>
             <FadeIn delay={0.4}>
               <p className="max-w-2xl mx-auto text-xl md:text-2xl text-foreground/40 font-medium leading-relaxed tracking-tight">
-                Combinamos arquitetura de software de alta performance com design funcional para criar soluções que escalam o seu negócio.
+                Combinamos arquitetura de software de alta performance with design funcional para criar soluções que escalam o seu negócio.
               </p>
             </FadeIn>
           </div>
