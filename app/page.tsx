@@ -612,28 +612,28 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex gap-12 relative z-20">
-            {["Instagram", "LinkedIn", "GitHub"].map((social) =>
-              social === "GitHub" ? (
-                <Link
-                  key={social}
-                  href="https://github.com/allysrdev"
-                  target="_blank"
-                  className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors cursor-pointer"
-                >
-                  {social}
-                </Link>
-              ) : (
-                <Link
-                  key={social}
-                  href="#"
-                  className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors cursor-pointer"
-                >
-                  {social}
-                </Link>
-              ),
-            )}
-          </div>
+          {/* <div className="flex gap-12 relative z-20">
+            {[
+              {
+                label: "Instagram",
+                href: "https://instagram.com/guaiamumdgtl",
+              },
+              {
+                label: "LinkedIn",
+                href: "https://linkedin.com/company/guaiamumdigital",
+              },
+              { label: "GitHub", href: "https://github.com/allysrdev" },
+            ].map((social) => (
+              <Link
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                className="text-xs font-bold uppercase tracking-[0.2em] hover:text-foreground transition-colors cursor-pointer"
+              >
+                {social.label}
+              </Link>
+            ))}
+          </div> */}
         </div>
       </footer>
     </div>
