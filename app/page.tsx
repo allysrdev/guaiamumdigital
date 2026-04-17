@@ -579,7 +579,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-10 pt-4 md:pt-8 relative z-20">
               <Link
-                href="https://wa.me/558132998614"
+                href="https://wa.me/558184813341?text=Olá! Vim pelo site da Guaiamum Digital e gostaria de saber mais sobre seus serviços."
                 target="_blank"
                 className="w-full sm:w-auto px-10 md:px-12 py-5 md:py-6 bg-white text-black rounded-full text-lg md:text-xl font-bold hover:scale-105 transition-transform duration-500 shadow-2xl cursor-pointer"
               >
